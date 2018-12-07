@@ -1,21 +1,50 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Test from '@/components//Test'
+import Home from '../components/test/Home.vue'
+import About from '../components/test/About.vue'
+import User from '../components/test/User.vue'
+import Phone from '../components/header/Phone.vue'
+import Computer from '../components/header/Computer.vue'
+import Tablet from '../components/header/Tablet.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/home',
+      component: Home,
+      children:[
+        {
+          path:'phone',
+          component: Phone
+        },
+        {
+          path:'tablet',
+          component: Tablet
+        },
+        {
+          path:'computer',
+          component: Computer
+        },
+        {
+          path:'',
+          component:Phone
+        }
+      ]
     },
     {
-      path: '/test',
-      name: 'Test',
-      component:Test
+      path: '/about',
+      component: About
+    },
+    {
+      path: '/',
+      redirect: 'home'
+    },
+    {
+      path:'/user/:id',
+      name:'user',
+      component:User
     }
   ]
 })
