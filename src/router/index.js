@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../components/test/Home.vue'
+import Home from '../components/home/Home.vue'
 import About from '../components/test/About.vue'
 import User from '../components/test/User.vue'
 import Phone from '../components/header/Phone.vue'
 import Computer from '../components/header/Computer.vue'
 import Tablet from '../components/header/Tablet.vue'
+import Header from '../components/header/Header.vue'
 
 Vue.use(Router);
 
@@ -14,22 +15,26 @@ export default new Router({
     {
       path: '/home',
       component: Home,
-      children:[
+      children: [
         {
-          path:'phone',
+          path: 'phone',
           component: Phone
         },
         {
-          path:'tablet',
+          path: 'tablet',
           component: Tablet
         },
         {
-          path:'computer',
+          path: 'computer',
           component: Computer
         },
         {
-          path:'',
-          component:Phone
+          path: 'header',
+          component: Header
+        },
+        {
+          path: '',
+          component: Phone
         }
       ]
     },
@@ -38,13 +43,9 @@ export default new Router({
       component: About
     },
     {
-      path: '/',
-      redirect: 'home'
-    },
-    {
-      path:'/user/:id',
-      name:'user',
-      component:User
+      path: '/user/:id',
+      name: 'user',
+      component: User
     }
   ]
 })

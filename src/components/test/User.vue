@@ -9,14 +9,13 @@
   export default {
     data(){
       return {
-        message:'user',
+        message:'',
         dynamicSegment:''
       }
     },
     watch:{
       $route(to,from){
-        console.log(to);
-        console.log(from);
+        this.message = to.name;
         this.dynamicSegment = to.params.id
       }
     }

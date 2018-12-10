@@ -1,10 +1,9 @@
 <template>
   <div id="app">
-    <router-link to="/home">Home</router-link>
-    <router-link to="/about">About</router-link>
-    <router-link to="/user/123">用户123</router-link>
-    <router-link to="/user/456">用户456</router-link>
-    <router-view/>
+    <ul>
+      <li v-for="item in list"><router-link :to='item.path'>{{item.name}}</router-link></li>
+      <router-view/>
+    </ul>
   </div>
 </template>
 
@@ -13,7 +12,13 @@ export default {
   name: 'app',
   data () {
     return {
-      message: 'Welcome to Your Vue.js App'
+      message: 'Welcome to Your Vue.js App',
+      list:[
+        {name:'Home',path:'/home'},
+        {name:'About',path:'/about'},
+        {name:'用户1',path:'/user/111'},
+        {name:'用户2',path:'/user/222'}
+      ]
     }
   }
 }
