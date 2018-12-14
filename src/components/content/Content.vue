@@ -1,16 +1,20 @@
 <template>
-  <div>
-    <h3>{{message}}</h3>
+  <div class="content">
+    <router-view></router-view>
   </div>
 </template>
 <script>
+
   export default {
     data(){
       return {
-        message:'phone组件'
+        msg:'主要内容区块'
       }
     }
   }
 </script>
 <style>
+  .content{
+    flex: 1 0 auto
+  }
 </style>

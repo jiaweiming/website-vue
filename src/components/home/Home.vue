@@ -1,22 +1,14 @@
 <template>
-  <div>
-    <h3>Home</h3>
-    <p>{{message}}</p>
-    <ul>
-      <li><router-link to="/home/phone">手机</router-link></li>
-      <li><router-link to="/home/tablet">平板</router-link></li>
-      <li><router-link to="/home/computer">电脑</router-link></li>
-      <li><router-link to="/home/header">header测试</router-link></li>
-    </ul>
-    <router-view></router-view>
-    <div class="number">
-      <Number></Number>
-    </div>
+  <div id="main-container">
+    <Header></Header>
+    <Content></Content>
+    <Footer></Footer>
   </div>
 </template>
 <script>
-  import Number from '../../components/test/Number.vue'
-  import store from '../../../src/vuex/stores'
+  import Footer from '../../components/footer/Footer.vue'
+  import Header from '../../components/header/Header.vue'
+  import Content from '../../components/content/Content.vue'
   export default {
     data(){
       return {
@@ -24,10 +16,19 @@
       }
     },
     components:{
-      Number
+      Footer,
+      Header,
+      Content
     }
   }
 </script>
-<style>
-
+<style lang="scss">
+  html,body{
+    height: 100%;
+  }
+#main-container{
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
 </style>

@@ -1,13 +1,11 @@
 <template>
   <div id="app">
-    <ul>
-      <li v-for="item in list"><router-link :to='item.path'>{{item.name}}</router-link></li>
-      <router-view/>
-    </ul>
+    <Home></Home>
   </div>
 </template>
 
 <script>
+  import Home from './components/home/Home.vue'
 export default {
   name: 'app',
   data () {
@@ -20,6 +18,9 @@ export default {
         {name:'用户2',path:'/user/222'}
       ]
     }
+  },
+  components:{
+    Home
   }
 }
 </script>
@@ -35,5 +36,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 </style>
