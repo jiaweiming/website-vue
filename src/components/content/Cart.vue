@@ -1,24 +1,30 @@
 <template>
   <div id="cart">
-    <h3 class="cart-title">{{message}}</h3>
+    <h4 class="cart-title">{{message}}</h4>
     <div class="cart" v-if="totalList.length">
       <h6>
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange"></el-checkbox>
+        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll"
+                     v-on:change="selectAllInCart(checkAll)"
+                     @change="handleCheckAllChange">
+        </el-checkbox>
         全选
       </h6>
       <hr style="margin: 10px 0">
       <ul>
-        <el-checkbox-group v-model="checked" @change="handleCheckedChange">
+        <el-checkbox-group v-model="checked" @change="handleCheckedChange" >
           <li v-for="(item,index) in totalList">
             <div class="product-single-cart">
               <div class="top-icons">
-                <el-checkbox :label="item" :key="index" :id="''+item.id" :value="item.id" v-model="checked">
+                <el-checkbox :label="item" :key="index" :id="''+item.id" :value="item.id" v-model="checked" v-on:change="checked.includes(item) ? selectSingleInCart(item,index):selectSingleInCart(false)">
                 </el-checkbox>
-                <i class="el-icon-delete" @click="removeOne(item.id,index,item)" :disabled="!checked.includes(item)"></i>
+                <i class="el-icon-delete" @click="removeOne(item.id,index,item)"
+                   :disabled="!checked.includes(item)" v-on:click="removeSingleInList(item,index,item.id)"></i>
               </div>
               <div class="product-single-desc">
                 <div class="left-img">
-                  <img style="width: 100%" :src="item.image" :alt="item.name">
+                  <router-link :to="'/products/'+ item.id" >
+                    <img style="width: 100%" :src="item.image" :alt="item.name">
+                  </router-link>
                 </div>
                 <div class="right-title">
                   <h6>{{item.name}}</h6>
@@ -39,14 +45,14 @@
           </li>
         </el-checkbox-group>
       </ul>
-      <p>
-        {{productsTotalPrice}}总计 <b>{{totalCount}}</b>件商品，共 <b>{{totalPrice}}</b> 元
-      </p>
-      <div id="pay">
-          <el-button class="payment-button" type="primary" :disabled="!this.checked.length">
-            <router-link :to="this.checked.length? '/payment':'/cart'">结算</router-link>
-          </el-button>
+      <div class="subtotal-price">
+        <p>{{productsTotalPrice}}合计:<b style="color: #d73b3b">{{totalCount}}</b>件商品，共 <b style="color: #d73b3b">{{totalPrice}}</b> 元</p>
+        <el-button class="payment-button" type="primary" :disabled="!this.checked.length" @click="submitCart">
+          <!--<router-link :to="this.checked.length? '/order':'/cart'">结算</router-link>-->
+          结算
+        </el-button>
       </div>
+
     </div>
     <div v-else>
       购物车空空如也、、、
@@ -77,19 +83,21 @@
     data() {
       return {
         format: formatter,
-        message: 'Shopping Cart',
+        message: '我的购物车',
         totalList: store.state.addedToCart,
         totalPrice: 0,
         totalCount: 0,
-        checked: [],
+        checked: store.state.selectedInCart,
         checkAll: false,
         cartProducts: cartList,
-        isIndeterminate: true,
+        isIndeterminate: true
       }
     },
     methods: {
       ...mapMutations([
         'selectAllInCart',
+        'selectSingleInCart',
+        'removeSingleInList'
       ]),
       handleCheckAllChange(val) {
         this.checked = val ? cartList : [];
@@ -100,17 +108,20 @@
         this.checkAll = checkedCount === this.cartProducts.length;
         this.isIndeterminate = checkedCount > 0 && checkedCount < this.cartProducts.length;
       },
-      removeOne(id, index,val) {
+      removeOne(id, index, val) {
         this.checked.map((item, index) => {
           if (item.id === id) {
             this.checked.splice(index, 1)
           }
         });
-        this.totalList.map((item, index) => {
-          if (item.id === id) {
-            this.totalList.splice(index, 1)
-          }
-        });
+      },
+      submitCart(){
+        let that = this;
+        document.getElementsByClassName('loading')[0].style.display = 'block';
+        setTimeout(function () {
+          document.getElementsByClassName('loading')[0].style.display = 'none';
+          that.$router.push({path:'/order'})
+        },300)
       }
     },
     computed: {
@@ -126,14 +137,9 @@
           totalPrice += Number(item.count) * Number(item.price)
         });
         this.totalCount = totalCount;
-        this.totalPrice = formatter.format(totalPrice/100);
+        this.totalPrice = formatter.format(totalPrice / 100);
       }
     },
-    mounted:function () {
-      Vue.nextTick(function () {
-
-      })
-    }
   }
 </script>
 <style lang="css">
@@ -157,14 +163,16 @@
     border: 1px solid #ccc;
   }
 
-  #pay{
+  #pay {
     display: flex;
     justify-content: flex-end;
   }
+
   .payment-button a {
     text-decoration: none;
     color: #fff;
   }
+
   .count {
     color: #2c3e50;
     width: 34px;
@@ -235,5 +243,22 @@
     float: left;
     left: 0;
     bottom: 0;
+  }
+  .subtotal-price{
+    position: fixed;
+    right:0;
+    bottom:0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 11;
+    background-color: #fff;
+    padding: 0 10px;
+  }
+  .subtotal-price p{
+    text-align: right;
+    margin-bottom:0;
+    margin-right: 20px;
   }
 </style>

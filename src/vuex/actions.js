@@ -12,6 +12,7 @@ export const showMenu = ({commit}) => commit('showMenu');
 export const selectAllInCart = ({commit}) => commit('selectAllInCart');
 export const selectSingleInCart = ({commit}) => commit('selectSingleInCart');
 export const removeSingleInList = ({commit}) => commit('removeSingleInList');
+export const changeAddress = ({commit}) => commit('changeAddress')
 
 
 

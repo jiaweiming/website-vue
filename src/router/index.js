@@ -9,6 +9,9 @@ import Main from '../components/home/Main.vue'
 import Product from '../components/content/Product.vue'
 import Collection from '../components/content/Collection.vue'
 import Payment from '../components/content/Payment.vue'
+import Address from '../components/content/Address.vue'
+import NewAddress from '../components/module/NewAddress.vue'
+import PayMethods from '../components/module/PayMethods.vue'
 
 Vue.use(Router);
 
@@ -56,8 +59,21 @@ export default new Router({
       component: Cart
     },
     {
-      path: '/payment',
+      path: '/order',
       component: Payment
+    },
+    {
+      path: '/address',
+      component:Address,
+    },
+    {
+      path: '/newaddress',
+      componnet:NewAddress
+    },
+    {
+      path:'/payment',
+      component:PayMethods
     }
+
   ]
 })

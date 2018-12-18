@@ -24,24 +24,36 @@ export const showMenu = (state) => {
 };
 
 export const selectAllInCart = (state, data) => {  //全选
-  if(data === false){
+  if(data === true){
     state.selectedInCart = [];
-    console.log(state.addedToCart)
     state.addedToCart.map((item)=>{
       state.selectedInCart.push(item)
     });
   }else{
-    state.selectedInCart.length = 0
+    state.selectedInCart= [];
   }
 };
 
-export const removeSingleInList = (state, item) => {  //删除整行
+export const selectSingleInCart = (state,data,index) =>{ //选择单个商品
+  if(data){
+    state.selectedInCart.push(data)
+  }else{
+    state.selectedInCart.splice(index,1)
+  }
+}
+
+export const removeSingleInList = (state, item,index,id) => {  //删除单个商品
   if(state.addedToCart.includes(item)){
     state.addedToCart.splice(searchArray(state.addedToCart,item),1)
   }
   if(state.selectedInCart.includes(item)){
     state.selectedInCart.splice(searchArray(state.selectedInCart,item),1)
   }
-  console.log(state.selectedInCart)
 };
+
+export const changeAddress = (state,data) =>{
+  state.orderAddress.default.userName = data.userName;
+  state.orderAddress.default.phoneNumber = data.phoneNumber;
+  state.orderAddress.default.address = data.address
+}
 
