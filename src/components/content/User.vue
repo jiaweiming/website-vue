@@ -1,9 +1,9 @@
 <template>
   <div id="account">
-    <div class="isLogin" v-if="hasAccount === false">
+    <div class="isLogin" v-if="!hasAccount">
       <h3>{{loginTitle}}</h3>
       <div>
-        <span>没有账户?，<span class="linked" @click="toggleStatus()">创建账户</span></span>
+        <span>没有账户?,<span class="linked" @click="toggleStatus()">创建账户</span></span>
       </div>
       <div class="login">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
@@ -21,10 +21,10 @@
         </el-form>
       </div>
     </div>
-    <div class="isSign" v-if="hasAccount === true">
+    <div class="isSign" v-if="hasAccount">
       <h3>{{signTitle}}</h3>
       <div>
-        <span>已有账户?，<span class="linked" @click="toggleStatus()">立即登录</span></span>
+        <span>已有账户?,<span class="linked" @click="toggleStatus()">立即登录</span></span>
       </div>
       <div class="login">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
@@ -67,7 +67,6 @@
       },
       toggleStatus(){
         this.hasAccount = !this.hasAccount;
-        console.log(this.hasAccount)
       }
     }
   }

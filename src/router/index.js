@@ -8,6 +8,7 @@ import Cart from '../components/content/Cart.vue'
 import Main from '../components/home/Main.vue'
 import Product from '../components/content/Product.vue'
 import Collection from '../components/content/Collection.vue'
+import Payment from '../components/content/Payment.vue'
 
 Vue.use(Router);
 
@@ -53,6 +54,10 @@ export default new Router({
     {
       path: '/cart',
       component: Cart
+    },
+    {
+      path: '/payment',
+      component: Payment
     }
   ]
 })

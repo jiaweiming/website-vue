@@ -35,15 +35,6 @@ export const selectAllInCart = (state, data) => {  //全选
   }
 };
 
-
-export const deleteSingleInCart = (state, item) => {  //单个选择取消
-  if(state.selectedInCart.includes(item)){
-    state.selectedInCart.splice(searchArray(state.selectedInCart,item),1)
-  }
-  console.log(state.selectedInCart)
-};
-
-
 export const removeSingleInList = (state, item) => {  //删除整行
   if(state.addedToCart.includes(item)){
     state.addedToCart.splice(searchArray(state.addedToCart,item),1)
@@ -51,11 +42,6 @@ export const removeSingleInList = (state, item) => {  //删除整行
   if(state.selectedInCart.includes(item)){
     state.selectedInCart.splice(searchArray(state.selectedInCart,item),1)
   }
+  console.log(state.selectedInCart)
 };
 
-export const selectSingleInCart = function (state, data) {  //单选
-  if(!state.selectedInCart.includes(data)){
-    state.selectedInCart.push(data)
-  }
-  console.log(state.selectedInCart+'添加')
-};

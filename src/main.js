@@ -4,7 +4,7 @@ import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import Vue from 'vue'
-import {Button,Select,Input,Menu,MenuItem,Option,Breadcrumb,BreadcrumbItem,Carousel,CarouselItem,MenuItemGroup,Submenu,Form,FormItem,Header,Footer,Container,Aside,Main,Row,Col} from 'element-ui'
+import {Button,Select,Input,Menu,MenuItem,Checkbox,CheckboxGroup,Option,Breadcrumb,BreadcrumbItem,Carousel,CarouselItem,MenuItemGroup,Submenu,Form,FormItem,Header,Footer,Container,Aside,Main,Row,Col} from 'element-ui'
 import App from './App.vue'
 import router from './router'
 import store from './vuex/stores'
@@ -13,6 +13,8 @@ Vue.config.productionTip = false;
 Vue.component(Button.name, Button);
 Vue.component(Select.name, Select);
 Vue.component(Option.name, Option);
+Vue.component(Checkbox.name, Checkbox);
+Vue.component(CheckboxGroup.name, CheckboxGroup);
 Vue.component(Carousel.name, Carousel);
 Vue.component(Breadcrumb.name, Breadcrumb);
 Vue.component(BreadcrumbItem.name, BreadcrumbItem);
