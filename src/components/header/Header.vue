@@ -21,7 +21,7 @@
           <router-link to="/cart">
             <div class="grid-content bg-purple-dark cart-count-box">
               <img src="../../assets/cart.svg" alt="">
-              <span v-if="addedToCart.length" class="cart-count">{{addedToCart.length}}</span>
+              <span v-if="addedToCart.length" class="cart-count">{{getTotalNumber()}}</span>
             </div>
           </router-link>
         </el-col>
@@ -38,6 +38,7 @@
   export default {
     data() {
       return {
+        count:store.state.addedToCart
       }
     },
     components:{
@@ -45,13 +46,20 @@
     },
     computed:{
       ...mapGetters([
-        'addedToCart'
+        'addedToCart',
       ])
     },
     methods:{
       ...mapMutations([
         'showMenu'
-      ])
+      ]),
+      getTotalNumber(){
+        let _count=0;
+        this.count.map((item,index)=>{
+          _count += Number(item.count)
+        })
+        return _count
+      }
     }
   }
 </script>

@@ -7,9 +7,10 @@ import * as mutations from './mutations'
 Vue.use(Vuex);
 
 const state = {
-  count: 0,
+  totalCount: 0,
   data: '',
   show:false,
+  OrderTotalPrice:'',
   selectedInCart:[],
   orderAddress:{
     default:{userName:'张三',phoneNumber:'13912345678',address:'上海市松江区泗泾镇某某路518号'},

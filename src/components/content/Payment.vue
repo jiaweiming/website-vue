@@ -49,10 +49,8 @@
         </ul>
         <div class="subtotal-price">
           <p>{{productsTotalPrice}}合计:<b style="color: #d73b3b">{{subtotal}}</b></p>
-          <el-button type="primary" class="submit-order" @click="submitOrder">
-
+          <el-button type="primary" class="submit-order" v-on:click="getOderTotalPrice(subtotal)" @click="submitOrder">
               提交订单
-
           </el-button>
         </div>
       </div>
@@ -88,13 +86,16 @@
           document.getElementsByClassName('loading')[0].style.display = 'none';
           that.$router.push({path:'/payment'})
         },300)
-      }
+      },
+      ...mapMutations([
+        'getOderTotalPrice'
+      ])
     },
     computed:{
       ...mapGetters([
         'userAddressDefault',
         'userAddressList',
-        'selectedInCart'
+        'selectedInCart',
       ]),
       productsTotalPrice: function () {
         let totalPrice = 0;

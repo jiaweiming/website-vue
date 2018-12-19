@@ -7,13 +7,6 @@ function searchArray(arrOb,value){
   return -1;
 }
 
-export const increase = (state, m) => {
-  state.count += m
-};
-export const decrease = (state, n) => {
-  state.count -= n
-};
-
 export const getAjaxData = (state, res) => {
   state.data = res.data
 };
@@ -51,9 +44,26 @@ export const removeSingleInList = (state, item,index,id) => {  //删除单个商
   }
 };
 
-export const changeAddress = (state,data) =>{
+export const changeAddress = (state,data) =>{  //修改默认收货地址
   state.orderAddress.default.userName = data.userName;
   state.orderAddress.default.phoneNumber = data.phoneNumber;
   state.orderAddress.default.address = data.address
 }
+
+export const addNewAddress = (state,data) =>{
+  if(data.name.length && data.phone.length && data.address.length){
+    state.orderAddress.list.push({
+      userName: data.name,
+      phoneNumber: data.phone,
+      address: data.address
+    })
+  }else{
+    return
+  }
+}
+
+export const getOderTotalPrice = (state,data) =>{
+  state.OrderTotalPrice = data
+}
+
 

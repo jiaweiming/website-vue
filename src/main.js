@@ -4,7 +4,7 @@ import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import Vue from 'vue'
-import {Button,Select,Input,Menu,MenuItem,Radio,RadioGroup,Checkbox,CheckboxGroup,Option,Breadcrumb,BreadcrumbItem,Carousel,CarouselItem,MenuItemGroup,Submenu,Form,FormItem,Header,Footer,Container,Aside,Main,Row,Col} from 'element-ui'
+import {Button,Select,Input,Menu,Rate,MenuItem,Alert,Dialog,Radio,RadioGroup,Checkbox,CheckboxGroup,Option,Breadcrumb,BreadcrumbItem,Carousel,CarouselItem,MenuItemGroup,Submenu,Form,FormItem,Header,Footer,Container,Aside,Main,Row,Col} from 'element-ui'
 import App from './App.vue'
 import router from './router'
 import store from './vuex/stores'
@@ -14,6 +14,9 @@ Vue.component(Button.name, Button);
 Vue.component(Select.name, Select);
 Vue.component(Option.name, Option);
 Vue.component(Radio.name, Radio);
+Vue.component(Rate.name, Rate);
+Vue.component(Alert.name, Alert);
+Vue.component(Dialog.name, Dialog);
 Vue.component(Checkbox.name, Checkbox);
 Vue.component(RadioGroup.name, RadioGroup);
 Vue.component(CheckboxGroup.name, CheckboxGroup);
