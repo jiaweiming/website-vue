@@ -5,17 +5,11 @@
       </div>
       <div class="main-content">
         <div class="title-price">
-          <h5 class="price">{{product.price}}</h5>
+          <h5 class="price">{{format.format(product.price / 100)}}</h5>
           <h6 class="title">{{product.title}}</h6>
           <p class="ship-sale-location">
             <span>快递:{{product.shipping}}</span><span>月销:{{product.sales}}</span><span>{{product.location}}</span>
           </p>
-        </div>
-        <div class="add-to-cart">
-          <div class="addToCart btn-buy"><el-button type="primary">加入购物车</el-button></div>
-          <div class="buyNow btn-buy"><el-button type="primary">
-            <router-link to="/cart">立即购买</router-link>
-          </el-button></div>
         </div>
       </div>
       <div class="discount-ship-date">
@@ -35,7 +29,7 @@
               <span>Tom***ly</span>
             </div>
             <div>
-              <el-rate @change="getRateValue" v-model="rateValue" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
+              <el-rate v-model="rateValue" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
             </div>
           </div>
           <div class="rate-customer-content">
@@ -43,19 +37,33 @@
           </div>
         </div>
       </div>
+      <div class="add-to-cart">
+        <div class="addToCart btn-buy"><el-button type="primary" @click="showPopupHandle(false)">加入购物车</el-button></div>
+        <div class="buyNow btn-buy"><el-button type="primary" @click="showPopupHandle(true)">立即购买</el-button></div>
+      </div>
       <div class="rate">
         <p class="rate-title"><span>宝贝详情</span></p>
         <div class="description">
           描述部分<p>当前商品的id:{{id}}</p>
         </div>
       </div>
+      <AddToCart :data="product" :now="isBuyNow"></AddToCart>
     </div>
 </template>
 <script>
   import Swiper from './Swiper.vue'
+  import AddToCart from '../module/AddToCart.vue'
+  import {mapMutations} from 'vuex'
+  const formatter = new Intl.NumberFormat('cn-CN', {
+    style: 'currency',
+    currency: 'CNY',
+    minimumFractionDigits: 2
+  });
   export default {
     data(){
       return {
+        isBuyNow:false,
+        format: formatter,
         rateValue:5,
         id: this.$route.params.id,
         loading:false,
@@ -67,11 +75,12 @@
             'https://cdn.shopify.com/s/files/1/2350/7085/files/5-3_ef0b0aaf-265d-4606-9c6d-29e4359b26aa.jpg?16410137396198625974',
             'https://cdn.shopify.com/s/files/1/2350/7085/files/5-5_20ad8cda-8102-40b2-9512-03a74afc364b.jpg?16410137396198625974'],
           title:'Elegant Panel Sleeveless Dress',
-          price:'￥180.00',
-          colors:['red','blue','green','black','pink'],
-          sizes:['XXL','XL','L','M','S'],
+          price:'18000',
+          colors:['Red','Blue','Green','Black','Pink'],
+          sizes:['S','M','L','XL','XXL'],
           shipping:'包邮',
           sales:'330',
+          inventory:'2048',
           location:'上海',
           rateShip:'物流很快(20)',
           rateQuality:'质量很好(9)',
@@ -81,17 +90,14 @@
       }
     },
     methods:{
-      fetchData(){
-        this.loading= true;
-        console.log(this.id)
-      },
-      getRateValue(){
-        console.log(this.rateValue)
-      }
+      ...mapMutations([
+        'showPopupHandle'
+      ])
     },
     components:{
-      Swiper
-    },
+      Swiper,
+      AddToCart
+    }
   }
 </script>
 <style lang="css" scoped>
@@ -179,6 +185,7 @@
     padding: 5px;
     border-bottom: 14px solid #f1f1f1;
   }
+
   .rate-title{
     display: flex;
     justify-content: space-between;
@@ -205,6 +212,9 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
+  }
+  .rate-customer-name .el-rate__item .el-rate__icon{
+    margin-right: 0 !important;
   }
   .avatar{
     width: 100px;

@@ -28,7 +28,8 @@
                 </div>
                 <div class="right-title">
                   <h6>{{item.name}}</h6>
-                  <h6>{{format.format((item.price) / 100)}}</h6>
+                  <h6 class="price-size-color">{{format.format((item.price) / 100)}}</h6>
+                  <h6 class="price-size-color">{{item.size}}/{{item.color}}</h6>
                   <div class="bottom-nav">
                     <p class="single-total-price">{{format.format((item.price) / 100 * item.count)}}</p>
                     <p class="count-number">
@@ -260,5 +261,10 @@
     text-align: right;
     margin-bottom:0;
     margin-right: 20px;
+  }
+  .price-size-color{
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
   }
 </style>

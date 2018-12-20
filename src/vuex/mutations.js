@@ -16,7 +16,7 @@ export const showMenu = (state) => {
   console.log(state.show)
 };
 
-export const selectAllInCart = (state, data) => {  //全选
+export const selectAllInCart = (state, data) => {  //全选，全不选
   if(data === true){
     state.selectedInCart = [];
     state.addedToCart.map((item)=>{
@@ -50,7 +50,7 @@ export const changeAddress = (state,data) =>{  //修改默认收货地址
   state.orderAddress.default.address = data.address
 }
 
-export const addNewAddress = (state,data) =>{
+export const addNewAddress = (state,data) =>{ //地址列表里，添加新的地址
   if(data.name.length && data.phone.length && data.address.length){
     state.orderAddress.list.push({
       userName: data.name,
@@ -62,8 +62,29 @@ export const addNewAddress = (state,data) =>{
   }
 }
 
-export const getOderTotalPrice = (state,data) =>{
+export const getOderTotalPrice = (state,data) =>{ //支付订单页，获取store里的订单总价
   state.OrderTotalPrice = data
 }
 
+export const showPopupHandle = (state,data) =>{ //详情页，点击弹出加购框
+  state.showPopup = !state.showPopup;
+  console.log(data);
+  state.isBuyNow = data;
+}
+
+export const hideBox = (state,data) =>{  //弹出框组件，点击关闭弹窗
+  state.showPopup = !state.showPopup;
+}
+
+export const sendVariantToCart = (state,data) => {
+  state.showPopup = !state.showPopup;
+  state.addedToCart.push({
+    name:data.title,
+    count:data.selectedCount,
+    price:data.price,
+    image:data.picture,
+    size:data.selectedSize,
+    color:data.selectedColor
+  })
+}
 
