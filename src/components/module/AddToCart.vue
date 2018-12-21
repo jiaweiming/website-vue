@@ -4,21 +4,18 @@
     <div class="variant-box">
       <div class="top-title">
         <div class="first-image">
-          <img ref="picture" :src="data.images[0]" alt="">
+          <img :src="selectProduct.variantImage" :alt="data.title">
         </div>
         <div class="title">
           <h6>{{format.format(data.price / 100)}}</h6>
-          <input ref="price" type="hidden" :value="data.price">
-          <input ref="title" type="hidden" :value="data.title">
-          <input ref="color" type="hidden" :value="data.colors[0]">
           <p class="inventory">库存:{{data.inventory}}件</p>
           <p class="inventory">已选" {{selectProduct.selectedColor}} / {{selectProduct.selectedSize}} "</p>
         </div>
       </div>
       <div class="colors">
         <p>颜色</p>
-        <el-radio-group v-model="selectProduct.selectedColor" size="small">
-          <el-radio-button class="color-btn" v-for="(item,index) in data.colors" :label="item" :key="index"></el-radio-button>
+        <el-radio-group v-model="selectProduct.selectedColor" @change="switchChange" size="small">
+          <el-radio-button class="color-btn" v-for="(item,index) in data.colors" :label="item.color" :key="index"></el-radio-button>
         </el-radio-group>
         <p>尺码</p>
         <el-radio-group v-model="selectProduct.selectedSize" size="small">
@@ -38,14 +35,15 @@
           </p>
         </div>
       </div>
-      <el-button class="sure-add" type="primary" @click="sendVariantToCart(selectProduct);turnToCart(ifBuyNow)">确定
-      </el-button>
+      <el-button class="sure-add" type="primary" @click="sendVariantToCart(selectProduct);turnToCart(ifBuyNow);open(ifBuyNow)">确定</el-button>
+
     </div>
   </div>
 </template>
 <script>
   import {mapMutations, mapGetters} from 'vuex'
   import store from '../../../src/vuex/stores'
+  import axios from 'axios'
 
   const formatter = new Intl.NumberFormat('cn-CN', {
     style: 'currency',
@@ -57,15 +55,18 @@
       return {
         format: formatter,
         selectProduct: {
-          selectedColor: 'Red',
-          selectedSize: 'S',
           selectedCount: 1,
+          selectedColor: '',
+          selectedSize: '',
           price: '',
           picture: '',
-          title: ''
+          id:'',
+          title: '',
+          variantImage:'',
         }
       }
     },
+    props: ['data', 'now','id'],
     computed: {
       ...mapGetters([
         'showPopupInProduct',
@@ -81,13 +82,39 @@
         if (m) {
           this.$router.push({path: '/cart'})
         }
-      }
+      },
+      switchChange(val){
+        this.data.colors.map((item,index)=>{
+          if(item.color == val){
+            this.selectProduct.variantImage = this.data.colors[index].image;
+          }
+        })
+      },
+      open(m) {
+        if(!m){
+          this.$message({
+            message: '成功加入购物车，赶快去结算吧~',
+            type: 'success'
+          })
+        }
+
+      },
     },
-    props: ['data', 'now'],
-    mounted() {
-      this.selectProduct.price = this.$refs.price.value;
-      this.selectProduct.picture = this.$refs.picture.src,
-      this.selectProduct.title = this.$refs.title.value
+    mounted() { //在组件加载完时，初始化加购时的基础数据，从父组件props传过来
+      let that = this;
+      axios.get('/product.json').then(function (res) {
+        let myData = res.data.data;
+        myData.map((item,index)=>{
+          if(item.id === that.id){
+            that.selectProduct.selectedColor = item.product.colors[0].color;
+            that.selectProduct.variantImage = item.product.colors[0].image;
+            that.selectProduct.selectedSize = item.product.sizes[0];
+            that.selectProduct.id = item.product.id;
+            that.selectProduct.price = item.product.price;
+            that.selectProduct.title = item.product.title;
+          }
+        })
+      })
     }
   }
 </script>
@@ -117,8 +144,6 @@
   }
 
   .variant-box {
-    overflow-y: scroll;
-    height: 100%;
     margin-top: 10px;
   }
 
@@ -155,6 +180,10 @@
 
   .colors {
     margin-top: 10px;
+    overflow-y: scroll;
+    height: 100%;
+    max-height: 280px;
+    padding-bottom: 40px;
   }
 
   .el-radio-group {

@@ -1,6 +1,6 @@
 <template>
   <div id="product">
-    <div class="swiper-container">
+    <div ref="swipers" class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide image-nav" v-for="(image,index) in lists">
           <img :src="image" alt="">
@@ -19,10 +19,12 @@
       return {}
     },
     mounted() {
-      let mySwiper = new Swiper('.swiper-container', {
+      let swiper = new Swiper(this.$refs.swipers, {
         autoplay: false,
-        loop: true
-      })
+        loop: true,
+        observer:true,
+        observeParents:true
+      });
     },
     props: ['lists']
   }

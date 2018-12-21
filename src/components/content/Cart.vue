@@ -15,7 +15,8 @@
           <li v-for="(item,index) in totalList">
             <div class="product-single-cart">
               <div class="top-icons">
-                <el-checkbox :label="item" :key="index" :id="''+item.id" :value="item.id" v-model="checked" v-on:change="checked.includes(item) ? selectSingleInCart(item,index):selectSingleInCart(false)">
+                <el-checkbox :label="item" :key="index" :id="''+item.id" :value="item.id" v-model="checked"
+                             v-on:change="checked.includes(item) ? selectSingleInCart(item,index):selectSingleInCart(false)">
                 </el-checkbox>
                 <i class="el-icon-delete" @click="removeOne(item.id,index,item)"
                    :disabled="!checked.includes(item)" v-on:click="removeSingleInList(item,index,item.id)"></i>
@@ -47,21 +48,20 @@
         </el-checkbox-group>
       </ul>
       <div class="subtotal-price">
-        <p>{{productsTotalPrice}}合计:<b style="color: #d73b3b">{{totalCount}}</b>件商品，共 <b style="color: #d73b3b">{{totalPrice}}</b> 元</p>
+        <p>{{productsTotalPrice}}合计:<b style="color: #d73b3b">{{totalCount}}</b>件商品，
+          共 <b style="color: #d73b3b">{{totalPrice}}</b> 元</p>
         <el-button class="payment-button" type="primary" :disabled="!this.checked.length" @click="submitCart">
-          <!--<router-link :to="this.checked.length? '/order':'/cart'">结算</router-link>-->
           结算
         </el-button>
       </div>
 
     </div>
     <div v-else>
-      购物车空空如也、、、
+      <img style="width: 180px" src="../../assets/empty-cart.png" alt="">
       <p>
         <router-link to="/">逛一逛</router-link>
       </p>
     </div>
-
   </div>
 </template>
 <script>
@@ -75,11 +75,6 @@
     minimumFractionDigits: 2
   });
 
-  let cartList = [];
-  store.state.addedToCart.map((item, index) => {
-    cartList.push(item)
-  });
-
   export default {
     data() {
       return {
@@ -90,7 +85,7 @@
         totalCount: 0,
         checked: store.state.selectedInCart,
         checkAll: false,
-        cartProducts: cartList,
+        cartProducts: store.state.addedToCart,
         isIndeterminate: true
       }
     },
@@ -101,7 +96,7 @@
         'removeSingleInList'
       ]),
       handleCheckAllChange(val) {
-        this.checked = val ? cartList : [];
+        this.checked = val ? this.cartProducts : [];
         this.isIndeterminate = false;
       },
       handleCheckedChange(value) {
@@ -140,7 +135,7 @@
         this.totalCount = totalCount;
         this.totalPrice = formatter.format(totalPrice / 100);
       }
-    },
+    }
   }
 </script>
 <style lang="css">

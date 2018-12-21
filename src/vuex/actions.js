@@ -1,11 +1,5 @@
-import axios from 'axios'
-
-export const getAjaxData = (url) => {
-  axios.get(url).then((res) => {
-    console.log(res)
-  })
-};
-
+//提交每一次的数据层操作
+export const getAjaxData = ({commit}) => commit('getData');
 export const showMenu = ({commit}) => commit('showMenu');
 export const selectAllInCart = ({commit}) => commit('selectAllInCart');
 export const selectSingleInCart = ({commit}) => commit('selectSingleInCart');

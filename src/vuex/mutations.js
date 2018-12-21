@@ -1,3 +1,4 @@
+
 function searchArray(arrOb,value){
   for(let i=0;i<arrOb.length;i++){
     if(arrOb[i]===value){
@@ -7,13 +8,8 @@ function searchArray(arrOb,value){
   return -1;
 }
 
-export const getAjaxData = (state, res) => {
-  state.data = res.data
-};
-
 export const showMenu = (state) => {
   state.show = !state.show;
-  console.log(state.show)
 };
 
 export const selectAllInCart = (state, data) => {  //全选，全不选
@@ -68,7 +64,6 @@ export const getOderTotalPrice = (state,data) =>{ //支付订单页，获取stor
 
 export const showPopupHandle = (state,data) =>{ //详情页，点击弹出加购框
   state.showPopup = !state.showPopup;
-  console.log(data);
   state.isBuyNow = data;
 }
 
@@ -82,9 +77,10 @@ export const sendVariantToCart = (state,data) => {
     name:data.title,
     count:data.selectedCount,
     price:data.price,
-    image:data.picture,
+    image:data.variantImage,
     size:data.selectedSize,
-    color:data.selectedColor
+    color:data.selectedColor,
+    id:data.id,
   })
 }
 

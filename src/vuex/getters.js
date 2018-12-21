@@ -8,3 +8,4 @@ export const OrderTotalPrice = state => state.OrderTotalPrice
 export const showPopupInProduct = state => state.showPopup
 export const ifBuyNow = state => state.isBuyNow
 
+

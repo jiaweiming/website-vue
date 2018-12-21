@@ -47,13 +47,14 @@
           描述部分<p>当前商品的id:{{id}}</p>
         </div>
       </div>
-      <AddToCart :data="product" :now="isBuyNow"></AddToCart>
+      <AddToCart :data="product" :id="id" :now="isBuyNow"></AddToCart>
     </div>
 </template>
 <script>
   import Swiper from './Swiper.vue'
   import AddToCart from '../module/AddToCart.vue'
-  import {mapMutations} from 'vuex'
+  import axios from 'axios'
+  import {mapMutations,mapGetters} from 'vuex'
   const formatter = new Intl.NumberFormat('cn-CN', {
     style: 'currency',
     currency: 'CNY',
@@ -67,26 +68,7 @@
         rateValue:5,
         id: this.$route.params.id,
         loading:false,
-        product:{
-          images:[
-            'https://cdn.shopify.com/s/files/1/2350/7085/files/4-1_85e0157f-b3fa-4ed3-b48a-4d084d9bcfd0.jpg?16410137396198625974',
-            'https://cdn.shopify.com/s/files/1/2350/7085/files/4-2_8bcf159a-e48c-417e-9dc8-7c85cf85c9af.jpg?16410137396198625974',
-            'https://cdn.shopify.com/s/files/1/2350/7085/files/4-4_b870c20c-2452-45e1-bdee-a4bc78ac4953.jpg?16410137396198625974',
-            'https://cdn.shopify.com/s/files/1/2350/7085/files/5-3_ef0b0aaf-265d-4606-9c6d-29e4359b26aa.jpg?16410137396198625974',
-            'https://cdn.shopify.com/s/files/1/2350/7085/files/5-5_20ad8cda-8102-40b2-9512-03a74afc364b.jpg?16410137396198625974'],
-          title:'Elegant Panel Sleeveless Dress',
-          price:'18000',
-          colors:['Red','Blue','Green','Black','Pink'],
-          sizes:['S','M','L','XL','XXL'],
-          shipping:'包邮',
-          sales:'330',
-          inventory:'2048',
-          location:'上海',
-          rateShip:'物流很快(20)',
-          rateQuality:'质量很好(9)',
-          rateService:'服务一般般(199)',
-          rateContent:'发货迅速，包装结实，生产日期新鲜，5星好评'
-        },
+        product:''
       }
     },
     methods:{
@@ -97,6 +79,17 @@
     components:{
       Swiper,
       AddToCart
+    },
+    mounted(){
+      let that = this;
+      axios.get('/product.json').then(function (res) {
+        let myData = res.data.data;
+        myData.map((item,index)=>{
+          if(item.id === that.id){
+            that.product = item.product
+          }
+        })
+      })
     }
   }
 </script>
