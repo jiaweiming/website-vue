@@ -39,7 +39,7 @@
               <div class="right-title">
                 <h6>{{product.name}}</h6>
                 <div class="bottom-nav">
-                  <p class="single-total-price"><b>{{format.format((product.price) / 100)}}</b></p>
+                  <p class="single-total-price"><b>{{format((product.price))}}</b></p>
                   <p>x{{product.count}}</p>
                   <div style="clear: both"></div>
                 </div>
@@ -59,16 +59,13 @@
 <script>
   import store from '../../vuex/stores'
   import {mapGetters, mapMutations} from 'vuex'
-  const formatter = new Intl.NumberFormat('cn-CN', {
-    style: 'currency',
-    currency: 'CNY',
-    minimumFractionDigits: 2
-  });
+  import formatMoney from '../module/formatMoney'
+
   export default {
     data() {
       return {
         message:'确认订单',
-        format: formatter,
+        format: formatMoney,
         list:store.state.selectedInCart,
         subtotal:0,
         isSubmit:false
@@ -103,7 +100,7 @@
         this.list.map((item) => {
           totalPrice += Number(item.count) * Number(item.price)
         });
-        this.subtotal = formatter.format(totalPrice / 100);
+        this.subtotal = this.format(totalPrice);
       }
     }
   }

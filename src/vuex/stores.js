@@ -8,6 +8,8 @@ Vue.use(Vuex);
 
 const state = {
   totalCount: 0,
+  currencyRate:1,
+  currencyType : 'EUR',
   data: '',
   show:false,
   isBuyNow:false,

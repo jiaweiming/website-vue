@@ -12,6 +12,8 @@ import Payment from '../components/content/Payment.vue'
 import Address from '../components/content/Address.vue'
 import NewAddress from '../components/module/NewAddress.vue'
 import PayMethods from '../components/module/PayMethods.vue'
+import Search from '../components/content/Search.vue'
+import Rate from '../components/module/Rate.vue'
 
 Vue.use(Router);
 
@@ -52,7 +54,7 @@ export default new Router({
     },
     {
       path: '/account',
-      component:User,
+      component: User,
     },
     {
       path: '/cart',
@@ -64,15 +66,23 @@ export default new Router({
     },
     {
       path: '/address',
-      component:Address,
+      component: Address,
     },
     {
       path: '/newaddress',
-      componnet:NewAddress
+      componnet: NewAddress
     },
     {
-      path:'/payment',
-      component:PayMethods
+      path: '/payment',
+      component: PayMethods
+    },
+    {
+      path: '/search',
+      component: Search
+    },
+    {
+      path: '/rate-:id',
+      component: Rate
     }
 
   ]

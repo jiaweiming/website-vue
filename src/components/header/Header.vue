@@ -5,14 +5,36 @@
     </div>
     <div class="header">
       <el-row>
-        <el-col :span="3"><div @click="showMenu()" class="grid-content bg-purple-dark"><img src="../../assets/menu.svg" alt=""></div></el-col>
-        <el-col :span="3"><div class="grid-content bg-purple-dark"><img src="../../assets/-Currency-Exchang.svg" alt=""></div></el-col>
-        <el-col :span="12">
+        <el-col :span="3">
+          <div @click="showMenu()" class="grid-content bg-purple-dark"><img src="../../assets/menu.svg" alt=""></div>
+        </el-col>
+        <el-col :span="5">
+          <div class="grid-content bg-purple-dark">
+            <el-select v-model="value" :placeholder="currType?currType:'EUR'" @change="changeCurrency(value)">
+              <el-option
+                v-for="(item,index) in options"
+                :key="index"
+                :label="item.label"
+                :value="item.label">
+              </el-option>
+            </el-select>
+          </div>
+        </el-col>
+        <el-col :span="8">
           <router-link to="/">
-            <div class="grid-content bg-purple-dark"><img style="width: 73.15%;margin-top: -2px" src="../../assets/homepage/logo.jpg" alt=""></div>
+            <div class="grid-content bg-purple-dark">
+              <img style="width: 99%;margin-top: -2px" src="../../assets/homepage/logo.jpg" alt="">
+            </div>
           </router-link>
         </el-col>
         <el-col :span="3">
+          <router-link to="/search">
+            <div class="grid-content bg-purple-dark cart-count-box">
+              <i class="el-icon-search"></i>
+            </div>
+          </router-link>
+        </el-col>
+        <el-col :span="2">
           <router-link to="/account">
             <div class="grid-content bg-purple-dark"><img src="../../assets/user.svg" alt=""></div>
           </router-link>
@@ -25,6 +47,7 @@
             </div>
           </router-link>
         </el-col>
+
       </el-row>
       <Menu></Menu>
     </div>
@@ -32,83 +55,113 @@
 </template>
 
 <script>
-  import {mapMutations,mapGetters} from 'vuex'
+  import {mapMutations, mapGetters} from 'vuex'
   import Menu from '../../components/header/Menu.vue'
   import store from '../../vuex/stores'
+
   export default {
     data() {
       return {
-        count:store.state.addedToCart
+        count: store.state.addedToCart,
+        options: [{
+          value: '选项1',
+          label: 'CNY'
+        }, {
+          value: '选项2',
+          label: 'JPY'
+        }, {
+          value: '选项3',
+          label: 'USD'
+        }, {
+          value: '选项4',
+          label: 'GBP'
+        }, {
+          value: '选项5',
+          label: 'CAD'
+        }],
+        value: ''
       }
     },
-    components:{
+    components: {
       Menu
     },
-    computed:{
+    computed: {
       ...mapGetters([
         'addedToCart',
+        'currType'
       ])
     },
-    methods:{
+    methods: {
       ...mapMutations([
-        'showMenu'
+        'showMenu',
+        'changeCurrency'
       ]),
-      getTotalNumber(){
-        let _count=0;
-        this.count.map((item,index)=>{
+      getTotalNumber() {
+        let _count = 0;
+        this.count.map((item, index) => {
           _count += Number(item.count)
         })
         return _count
-      }
+      },
     }
   }
 </script>
 <style lang="scss">
-  .replace-for-header{
+  .replace-for-header {
     flex: 0 0 auto;
     width: 100%;
     height: 36px;
     z-index: 999;
   }
-  .header{
+
+  .header {
     position: fixed;
     left: 0;
-    top:0;
-    width:100%;
+    top: 0;
+    width: 100%;
   }
+
   .el-row:last-child {
-     margin-bottom: 0;
-   }
+    margin-bottom: 0;
+  }
+
   .bg-purple-dark {
     background: #111;
   }
+
   .bg-purple {
     background: #d3dce6;
   }
+
   .bg-purple-light {
     background: #e5e9f2;
   }
+
   .grid-content {
     min-height: 36px;
     line-height: 36px;
     color: #fff;
   }
-  .grid-content img{
+
+  .grid-content img {
     width: 20px;
   }
+
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
   }
-  .cart-count-box{
+
+  .cart-count-box {
     position: relative;
   }
-  .cart-count{
+
+  .cart-count {
     position: absolute;
-    padding:0 5px;
+    padding: 0 5px;
     vertical-align: top;
-    right:0;
-    top:0;
+    right: 0;
+    top: 0;
     width: 22px;
     height: 22px;
     border-radius: 50%;
@@ -118,6 +171,28 @@
     line-height: 22px;
     text-align: center;
     padding: 2px;
+    color: #fff;
+  }
+
+  .el-select {
+    width: 100%;
+  }
+
+  .el-select .el-input__inner {
+    width: 75%;
+    padding: 0;
+    height: 30px;
+    padding: 0 4px;
+    background-color: #000;
+    color: #fff;
+    border-color: #999;
+  }
+
+  .el-input__inner::placeholder {
+    color: #fff;
+  }
+
+  .el-select__caret {
     color: #fff;
   }
 </style>

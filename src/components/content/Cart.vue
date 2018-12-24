@@ -29,10 +29,10 @@
                 </div>
                 <div class="right-title">
                   <h6>{{item.name}}</h6>
-                  <h6 class="price-size-color">{{format.format((item.price) / 100)}}</h6>
+                  <h6 class="price-size-color">{{format((item.price))}}</h6>
                   <h6 class="price-size-color">{{item.size}}/{{item.color}}</h6>
                   <div class="bottom-nav">
-                    <p class="single-total-price">{{format.format((item.price) / 100 * item.count)}}</p>
+                    <p class="single-total-price">{{format((item.price) * item.count)}}</p>
                     <p class="count-number">
                       <span class="num-count" @click="item.count > 1 ? item.count-- : 1"><i
                         class="el-icon-minus"></i></span>
@@ -68,17 +68,12 @@
   import Vue from 'vue'
   import store from '../../vuex/stores'
   import {mapGetters, mapMutations} from 'vuex'
-
-  const formatter = new Intl.NumberFormat('cn-CN', {
-    style: 'currency',
-    currency: 'CNY',
-    minimumFractionDigits: 2
-  });
+  import formatMoney from '../module/formatMoney.js'
 
   export default {
     data() {
       return {
-        format: formatter,
+        format: formatMoney,
         message: '我的购物车',
         totalList: store.state.addedToCart,
         totalPrice: 0,
@@ -133,7 +128,7 @@
           totalPrice += Number(item.count) * Number(item.price)
         });
         this.totalCount = totalCount;
-        this.totalPrice = formatter.format(totalPrice / 100);
+        this.totalPrice = this.format(totalPrice);
       }
     }
   }

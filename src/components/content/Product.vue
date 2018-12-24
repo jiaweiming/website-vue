@@ -5,7 +5,7 @@
       </div>
       <div class="main-content">
         <div class="title-price">
-          <h5 class="price">{{format.format(product.price / 100)}}</h5>
+          <h5 class="price">{{money(product.price)}}</h5>
           <h6 class="title">{{product.title}}</h6>
           <p class="ship-sale-location">
             <span>快递:{{product.shipping}}</span><span>月销:{{product.sales}}</span><span>{{product.location}}</span>
@@ -18,7 +18,7 @@
         <div class="service"><span>服务</span><span>破损包赔.正品保证.极速退款<i class="el-icon-arrow-right"></i></span></div>
       </div>
       <div class="rate">
-        <p class="rate-title"><span>宝贝评价</span><span>查看全部<i class="el-icon-arrow-right"></i></span></p>
+        <p class="rate-title"><span>宝贝评价</span><span class="all-rate"><router-link :to="'/rate-'+id">查看全部<i class="el-icon-arrow-right"></i></router-link></span></p>
         <div class="rate-tags">
           <span>{{product.rateShip}}</span><span>{{product.rateQuality}}</span><span>{{product.rateService}}</span>
         </div>
@@ -51,20 +51,16 @@
     </div>
 </template>
 <script>
-  import Swiper from './Swiper.vue'
+  import formatMoney from '../module/formatMoney.js'
+  import Swiper from '../module/Swiper.vue'
   import AddToCart from '../module/AddToCart.vue'
   import axios from 'axios'
   import {mapMutations,mapGetters} from 'vuex'
-  const formatter = new Intl.NumberFormat('cn-CN', {
-    style: 'currency',
-    currency: 'CNY',
-    minimumFractionDigits: 2
-  });
   export default {
     data(){
       return {
+        money:formatMoney,
         isBuyNow:false,
-        format: formatter,
         rateValue:5,
         id: this.$route.params.id,
         loading:false,
@@ -221,5 +217,8 @@
   .rate-customer-content span{
     font-size: 13px;
     color: #666;
+  }
+  .all-rate{
+    cursor: pointer;
   }
 </style>

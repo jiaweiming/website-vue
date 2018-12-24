@@ -83,8 +83,13 @@
 
   .title {
     color: #000;
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight:500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .price {
@@ -98,7 +103,7 @@
   }
 
   .bg-purple {
-    background-color: #fff;
+    background-color: #f1f1f1;
     border: 1px solid #f1f1f1;
     margin-bottom: 15px;
   }

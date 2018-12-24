@@ -1,6 +1,6 @@
 <template>
   <transition mode="out-in" name="fade">
-    <div id="menu" v-if="showMenu">
+    <div id="menu" v-if="isShowMenu">
       <div class="list">
         <div class="left-menu">
 
@@ -15,12 +15,12 @@
                   </template>
                   <el-menu-item-group v-for="(value,i) in list[0].category" :key="i">
                     <el-menu-item :index="'1-'+i">
-                      <router-link  :to="'/collections/'+value.name">{{value.name}}</router-link>
+                      <router-link  :to="'/collections/'+value.name.toLowerCase()" ><span @click="showMenu">{{value.name}}</span></router-link>
                     </el-menu-item>
                   </el-menu-item-group>
                 </el-submenu>
                 <el-menu-item :index="''+index" v-for="(item,index) in list[0].others" :key="''+index">
-                  <span slot="title" ><router-link  :to="'/collections/'+item.name">{{item.name}}</router-link></span>
+                  <span slot="title" ><router-link  :to="'/collections/'+item.name.toLowerCase()"><span @click="showMenu">{{item.name}}</span></router-link></span>
                 </el-menu-item>
               </el-menu>
             </el-col>
@@ -31,7 +31,7 @@
   </transition>
 </template>
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapGetters,mapMutations} from 'vuex'
   import store from '../../vuex/stores'
 
   export default {
@@ -56,9 +56,17 @@
     },
     computed: {
       ...mapGetters([
-        'showMenu'
+        'isShowMenu'
       ])
     },
+    methods:{
+      ...mapMutations([
+        'showMenu'
+      ]),
+      getStatus(){
+        console.log(store.state.show)
+      }
+    }
   }
 </script>
 <style lang="css" scoped>
