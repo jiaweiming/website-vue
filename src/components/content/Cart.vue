@@ -57,7 +57,7 @@
 
     </div>
     <div v-else>
-      <img style="width: 180px" src="../../assets/empty-cart.png" alt="">
+      <img style="width: 180px" src="/static/img/empty-cart.png" alt="">
       <p>
         <router-link to="/">逛一逛</router-link>
       </p>

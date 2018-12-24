@@ -12,8 +12,8 @@
       <div class="pay-methods">
         <template>
           <el-radio-group v-model="radio" @change="getPay">
-            <el-radio :label="1"><div class="pay-png"><img src="../../../src/assets/pay/alipay.png" alt=""></div></el-radio>
-            <el-radio :label="2"><div class="pay-png"><img src="../../../src/assets/pay/wechat_payment.png" alt=""></div></el-radio>
+            <el-radio :label="1"><div class="pay-png"><img src="/static/img/alipay.png" alt=""></div></el-radio>
+            <el-radio :label="2"><div class="pay-png"><img src="/static/img/wechat_payment.png" alt=""></div></el-radio>
           </el-radio-group>
         </template>
       </div>

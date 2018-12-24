@@ -25,7 +25,7 @@
         <div class="rate-customer">
           <div class="rate-customer-name">
             <div class="avatar">
-              <img src="../../../src/assets/default20.png" alt="">
+              <img src="/static/img/default20.png" alt="">
               <span>Tom***ly</span>
             </div>
             <div>
