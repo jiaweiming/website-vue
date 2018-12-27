@@ -1,14 +1,11 @@
 <template>
-    <div id="collection">
-      <div class="banner">
-        <img src="https://cdn.shopify.com/s/files/1/0040/2322/2390/files/sweater.jpg?10290704098713452830" alt="">
-      </div>
+    <div id="related-product">
+      <h4>{{message}}</h4>
       <div class="content">
-        <h3>{{title.toUpperCase()}}</h3>
         <div class="product-list">
           <el-row :gutter="10" class="product-container">
             <el-col :span="12" v-for="(item,index) in lists" :key="index" class="product-single">
-              <router-link tag="div" :to="'/collections/' + title + '/products/'+item.id">
+              <router-link tag="div" :to=" '/collections/'+query+'/products/'+item.id ">
                 <div class="grid-content bg-purple">
                   <img :src="item.image[0]" :alt="item.title">
                   <h5 class="title">{{item.title}}</h5>
@@ -27,7 +24,8 @@
     data() {
       return {
         money:formatMoney,
-        title:this.$route.params.query,
+        message:'猜你喜欢',
+        query:'all',
         lists: [
           {
             id: 123001, title: 'Elegant Panel Sleeveless Dress', price: 18000,handle:'elegant-panel-sleeveless-dress',
@@ -48,9 +46,12 @@
         ]
       }
     },
+    mounted(){
+
+    },
     watch:{
       $route(to,from){
-        this.title = to.params.query;
+
       }
     },
   }

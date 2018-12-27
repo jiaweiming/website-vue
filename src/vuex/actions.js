@@ -10,6 +10,7 @@ export const getOderTotalPrice = ({commit}) => commit('getOderTotalPrice')
 export const showPopupHandle = ({commit}) => commit('showPopupHandle')
 export const hideBox = ({commit}) => commit('hideBox')
 export const sendVariantToCart = ({commit}) => commit('sendVariantToCart')
+export const getProductData = ({commit}) => commit('getProductData')
 
 
 

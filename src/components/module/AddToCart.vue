@@ -4,32 +4,32 @@
     <div class="variant-box">
       <div class="top-title">
         <div class="first-image">
-          <img :src="selectProduct.variantImage" :alt="data.title">
+          <img :src="selectProduct.image" :alt="selectProduct.name">
         </div>
         <div class="title">
           <h6>{{format.format(data.price / 100)}}</h6>
           <p class="inventory">库存:{{data.inventory}}件</p>
-          <p class="inventory">已选" {{selectProduct.selectedColor}} / {{selectProduct.selectedSize}} "</p>
+          <p class="inventory">已选" {{selectProduct.color}} / {{selectProduct.size}} "</p>
         </div>
       </div>
       <div class="colors">
         <p>颜色</p>
-        <el-radio-group v-model="selectProduct.selectedColor" @change="switchChange" size="small">
+        <el-radio-group v-model="selectProduct.color" @change="switchChange" size="small">
           <el-radio-button class="color-btn" v-for="(item,index) in data.colors" :label="item.color" :key="index"></el-radio-button>
         </el-radio-group>
         <p>尺码</p>
-        <el-radio-group v-model="selectProduct.selectedSize" size="small">
+        <el-radio-group v-model="selectProduct.size" size="small">
           <el-radio-button class="color-btn" v-for="(item,index) in data.sizes" :label="item" :key="index"></el-radio-button>
         </el-radio-group>
         <div class="buy-count">
           <p>购买数量</p>
           <p class="count-number-box">
-            <span class="num-count-child" :style="selectProduct.selectedCount === 1 ? 'color:#ddd':'color:#222'"
-                  @click="selectProduct.selectedCount > 1 ? selectProduct.selectedCount-- : 1">
+            <span class="num-count-child" :style="selectProduct.count === 1 ? 'color:#ddd':'color:#222'"
+                  @click="selectProduct.count > 1 ? selectProduct.count-- : 1">
               <i class="el-icon-minus"></i>
             </span>
-            <span class="num-count-number" v-model="selectProduct.selectedCount">{{selectProduct.selectedCount}}</span>
-            <span class="num-count-child" @click="selectProduct.selectedCount++">
+            <span class="num-count-number" v-model="selectProduct.count">{{selectProduct.count}}</span>
+            <span class="num-count-child" @click="selectProduct.count++">
               <i class="el-icon-plus"></i>
             </span>
           </p>
@@ -55,14 +55,13 @@
       return {
         format: formatter,
         selectProduct: {
-          selectedCount: 1,
-          selectedColor: '',
-          selectedSize: '',
+          count: 1,
+          color: '',
+          size: '',
           price: '',
-          picture: '',
           id:'',
-          title: '',
-          variantImage:'',
+          name: '',
+          image:'',
         }
       }
     },
@@ -85,15 +84,15 @@
       },
       switchChange(val){
         this.data.colors.map((item,index)=>{
-          if(item.color == val){
-            this.selectProduct.variantImage = this.data.colors[index].image;
+          if(item.color === val){
+            this.selectProduct.image = this.data.colors[index].image;
           }
         })
       },
       open(m) {
         if(!m){
           this.$message({
-            message: '成功加入购物车，赶快去结算吧~',
+            message: '成功加入购物车，快去结算吧!',
             type: 'success'
           })
         }
@@ -106,12 +105,12 @@
         let myData = res.data.data;
         myData.map((item,index)=>{
           if(item.id === that.id){
-            that.selectProduct.selectedColor = item.product.colors[0].color;
-            that.selectProduct.variantImage = item.product.colors[0].image;
-            that.selectProduct.selectedSize = item.product.sizes[0];
+            that.selectProduct.color = item.product.colors[0].color;
+            that.selectProduct.image = item.product.colors[0].image;
+            that.selectProduct.size = item.product.sizes[0];
             that.selectProduct.id = item.product.id;
             that.selectProduct.price = item.product.price;
-            that.selectProduct.title = item.product.title;
+            that.selectProduct.name = item.product.title;
           }
         })
       })
@@ -175,7 +174,7 @@
   .title h6 {
     text-align: left;
     color: #e60000;
-    font-size: 500;
+    font-weight: 500;
   }
 
   .colors {
@@ -215,19 +214,25 @@
 
   .count-number-box .num-count-child {
     border: 1px solid #f0f0f0;
-    padding: 2px 9px;
     background-color: #f1f1f1;
     border-radius: 3px;
     color: #333;
+    width: 32px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
   }
 
   .count-number-box .num-count-number {
     border: 1px solid #f0f0f0;
-    padding: 2px 16px;
     margin: 0 5px;
     background-color: #f1f1f1;
     border-radius: 3px;
     color: #333;
+    width: 40px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
   }
 
   .el-radio-button__inner {
@@ -259,6 +264,6 @@
     border-radius: 15px;
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: 5px;
   }
 </style>

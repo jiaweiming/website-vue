@@ -1,5 +1,9 @@
 <template>
-    <div id="product">
+  <div id="product" >
+    <div class="loading" v-if="loading === false">
+      <i class="el-icon-loading"></i>
+    </div>
+    <div v-else>
       <div class="main-image">
         <Swiper :lists="product.images"></Swiper>  <!--主图，轮播组件-->
       </div>
@@ -18,7 +22,8 @@
         <div class="service"><span>服务</span><span>破损包赔.正品保证.极速退款<i class="el-icon-arrow-right"></i></span></div>
       </div>
       <div class="rate">
-        <p class="rate-title"><span>宝贝评价</span><span class="all-rate"><router-link :to="'/rate-'+id">查看全部<i class="el-icon-arrow-right"></i></router-link></span></p>
+        <p class="rate-title"><span>宝贝评价</span><span class="all-rate">
+          <router-link :to="'/rate-'+id">查看全部<i class="el-icon-arrow-right"></i></router-link></span></p>
         <div class="rate-tags">
           <span>{{product.rateShip}}</span><span>{{product.rateQuality}}</span><span>{{product.rateService}}</span>
         </div>
@@ -38,8 +43,12 @@
         </div>
       </div>
       <div class="add-to-cart">
-        <div class="addToCart btn-buy"><el-button type="primary" @click="showPopupHandle(false)">加入购物车</el-button></div>
-        <div class="buyNow btn-buy"><el-button type="primary" @click="showPopupHandle(true)">立即购买</el-button></div>
+        <div class="addToCart btn-buy">
+          <el-button type="primary" @click="showPopupHandle(false)">加入购物车</el-button>
+        </div>
+        <div class="buyNow btn-buy">
+          <el-button type="primary" @click="showPopupHandle(true)">立即购买</el-button>
+        </div>
       </div>
       <div class="rate">
         <p class="rate-title"><span>宝贝详情</span></p>
@@ -48,62 +57,92 @@
         </div>
       </div>
       <AddToCart :data="product" :id="id" :now="isBuyNow"></AddToCart>
+      <Related></Related>
     </div>
+  </div>
 </template>
 <script>
   import formatMoney from '../module/formatMoney.js'
   import Swiper from '../module/Swiper.vue'
   import AddToCart from '../module/AddToCart.vue'
+  import Related from '../module/Related.vue'
   import axios from 'axios'
-  import {mapMutations,mapGetters} from 'vuex'
+  import {mapMutations, mapGetters} from 'vuex'
+  import store from '../../vuex/stores'
+
   export default {
-    data(){
+    data() {
       return {
-        money:formatMoney,
-        isBuyNow:false,
-        rateValue:5,
+        money: formatMoney,
+        isBuyNow: false,
+        rateValue: 5,
         id: this.$route.params.id,
-        loading:false,
-        product:''
+        loading: false,
+        product: '',
       }
     },
-    methods:{
-      ...mapMutations([
-        'showPopupHandle'
+    created() {
+      this.getData(this.id);
+      this.loading = !this.loading
+    },
+    computed: {
+      ...mapGetters([
+        'productData'
       ])
     },
-    components:{
-      Swiper,
-      AddToCart
-    },
-    mounted(){
-      let that = this;
-      axios.get('/product.json').then(function (res) {
-        let myData = res.data.data;
-        myData.map((item,index)=>{
-          if(item.id === that.id){
-            that.product = item.product
-          }
+    methods: {
+      ...mapMutations([
+        'showPopupHandle',
+        'getProductData'
+      ]),
+      getData(id) {
+        let _this = this;
+        axios.get('/product.json').then(function (res) {
+          let myData = res.data.data;
+          myData.map((item, index) => {
+            if (item.id === id) {
+              _this.product = item.product;
+            }
+          })
         })
-      })
-    }
+      }
+    },
+    components: {
+      Swiper,
+      AddToCart,
+      Related
+    },
+    watch: {
+      $route(to, from) {
+        this.id = to.params.id;
+        this.getData(this.id)
+      },
+    },
   }
 </script>
 <style lang="css" scoped>
-  .main-content{
+  #product {
+    padding-bottom: 20px;
+  }
+
+  .main-content {
     padding: 5px;
     border-bottom: 14px solid #f1f1f1;
   }
-  .title-price{
+
+  .title-price {
     text-align: left;
   }
-  .price{
+
+  .price {
     color: #f33264;
   }
-  .title{
-    font-weight: 550;
+
+  .title {
+    font-weight: 500;
   }
-  .ship-sale-location{
+
+  .ship-sale-location {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -111,10 +150,11 @@
     color: #333;
     margin-bottom: 0;
   }
-  .add-to-cart{
+
+  .add-to-cart {
     position: fixed;
     left: 0;
-    bottom:0;
+    bottom: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -122,103 +162,125 @@
     z-index: 11;
     background-color: #fff;
     padding: 5px 5px;
-    border-top:1px solid #eee
+    border-top: 1px solid #eee
   }
-  .btn-buy{
+
+  .btn-buy {
     width: 49%;
   }
-  .btn-buy a{
+
+  .btn-buy a {
     color: #fff;
   }
-  .btn-buy button{
+
+  .btn-buy button {
     width: 100%;
 
     border-radius: 15px;
   }
-  .addToCart button{
+
+  .addToCart button {
     background-color: #ff902a;
     border-color: #ff902a;
   }
-  .buyNow button{
+
+  .buyNow button {
     background-color: orangered;
     border-color: orangered;
   }
-  .discount-ship-date{
+
+  .discount-ship-date {
     padding: 5px;
     border-bottom: 14px solid #f1f1f1;
   }
-  .discount-ship-date span:nth-child(2){
+
+  .discount-ship-date span:nth-child(2) {
     font-size: 12px;
     color: #666;
   }
-  .el-button{
+
+  .el-button {
     padding: 9px 20px;
   }
-  .discount-ship-date span:first-child{
+
+  .discount-ship-date span:first-child {
     margin-bottom: 0;
     font-size: 13px;
     color: #333;
     margin-right: 10px;
     font-weight: 500;
   }
-  .discount-ship-date div{
+
+  .discount-ship-date div {
     text-align: left;
   }
-  .discount-ship-date div i{
+
+  .discount-ship-date div i {
     float: right;
-    right:0;
-    top:0;
+    right: 0;
+    top: 0;
     line-height: 24px;
   }
-  .rate{
+
+  .rate {
     padding: 5px;
     border-bottom: 14px solid #f1f1f1;
   }
 
-  .rate-title{
+  .rate-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .rate-title span{
+
+  .rate-title span {
     font-size: 14px;
     font-weight: 500;
     color: #333;
   }
-  .rate-tags{
+
+  .rate-tags {
     text-align: left;
   }
-  .rate-tags span{
+
+  .rate-tags span {
     padding: 5px 10px;
     color: #666;
     border-radius: 5px;
     font-size: 13px;
     margin-right: 5px;
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0, 0, 0, .1);
   }
-  .rate-customer-name{
+
+  .rate-customer-name {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
   }
-  .rate-customer-name .el-rate__item .el-rate__icon{
+
+  .rate-customer-name .el-rate__item .el-rate__icon {
     margin-right: 0 !important;
   }
-  .avatar{
+
+  .avatar {
     width: 100px;
   }
-  .avatar img{
+
+  .avatar img {
     width: 35%;
   }
-  .rate-customer-content{
+
+  .rate-customer-content {
     text-align: left;
   }
-  .rate-customer-content span{
+
+  .rate-customer-content span {
     font-size: 13px;
     color: #666;
   }
-  .all-rate{
+
+  .all-rate {
     cursor: pointer;
   }
 </style>

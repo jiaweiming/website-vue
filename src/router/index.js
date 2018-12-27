@@ -2,31 +2,27 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/home/Home.vue'
 import User from '../components/content/User.vue'
-import Tablet from '../components/header/Tablet.vue'
 import Header from '../components/header/Header.vue'
 import Cart from '../components/content/Cart.vue'
 import Main from '../components/home/Main.vue'
 import Product from '../components/content/Product.vue'
 import Collection from '../components/content/Collection.vue'
-import Payment from '../components/content/Payment.vue'
+import Payment from '../components/content/Order.vue'
 import Address from '../components/content/Address.vue'
-import NewAddress from '../components/module/NewAddress.vue'
 import PayMethods from '../components/module/PayMethods.vue'
 import Search from '../components/content/Search.vue'
 import Rate from '../components/module/Rate.vue'
+import NotFound from '../components/module/NotFound.vue'
 
 Vue.use(Router);
 
 export default new Router({
+  mode:'history',
   routes: [
     {
       path: '/',
       component: Main,
       children: [
-        {
-          path: 'tablet',
-          component: Tablet
-        },
         {
           path: 'header',
           component: Header
@@ -38,19 +34,16 @@ export default new Router({
       component: Home
     },
     {
-      path: '/user/:id',
-      name: 'user',
-      component: User
-    },
-    {
       path: '/products/:id',
-      name: 'products',
       component: Product
     },
     {
       path: '/collections/:query',
-      name: 'collections',
       component: Collection
+    },
+    {
+      path: '/collections/:query/products/:id',
+      component: Product,
     },
     {
       path: '/account',
@@ -69,10 +62,6 @@ export default new Router({
       component: Address,
     },
     {
-      path: '/newaddress',
-      componnet: NewAddress
-    },
-    {
       path: '/payment',
       component: PayMethods
     },
@@ -83,7 +72,10 @@ export default new Router({
     {
       path: '/rate-:id',
       component: Rate
+    },
+    {
+      path: '*',
+      component: NotFound
     }
-
   ]
 })

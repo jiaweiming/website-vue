@@ -3,7 +3,9 @@
     <div class="loading">
       <i class="el-icon-loading"></i>
     </div>
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 <script>
@@ -27,7 +29,7 @@
     right:0;
     bottom:0;
     background-color: #fff;
-    opacity: .5;
+    opacity: .3;
     z-index: 50;
     display: none;
   }

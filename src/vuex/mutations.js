@@ -1,4 +1,5 @@
 import axios from 'axios'
+import _ from 'underscore'
 
 function searchArray(arrOb, value) {
   for (let i = 0; i < arrOb.length; i++) {
@@ -75,15 +76,45 @@ export const hideBox = (state, data) => {  //弹出框组件，点击关闭弹�
 
 export const sendVariantToCart = (state, data) => {  //加入购物车，将选择的商品属性存入cart数据
   state.showPopup = !state.showPopup;
-  state.addedToCart.push({
-    name: data.title,
-    count: data.selectedCount,
-    price: data.price,
-    image: data.variantImage,
-    size: data.selectedSize,
-    color: data.selectedColor,
-    id: data.id,
-  })
+  if (!state.addedToCart.length) {
+    state.addedToCart.push({
+      name: data.name,
+      count: data.count,
+      price: data.price,
+      image: data.image,
+      size: data.size,
+      color: data.color,
+      id: data.id,
+    })
+  } else {
+    state.addedToCart.map((item, index) => {
+      if(item.id === data.id){ //如果id相同，则为相同商品
+        if(_.isEqual(item, data)){  //完全一致，则是相同商品，无需push
+          item.count += data.count
+        }else{
+          state.addedToCart.push({  //id一致，可能颜色尺码差异，需要push
+            name: data.name,
+            count: data.count,
+            price: data.price,
+            image: data.image,
+            size: data.size,
+            color: data.color,
+            id: data.id,
+          })
+        }
+      }else{ //id不同，商品不同，直接push进数组
+        state.addedToCart.push({
+          name: data.name,
+          count: data.count,
+          price: data.price,
+          image: data.image,
+          size: data.size,
+          color: data.color,
+          id: data.id,
+        })
+      }
+    })
+  }
 }
 
 
@@ -126,4 +157,14 @@ export const changeCurrency = (state, data) => {
   })
 }
 
+export const getProductData = (state, id) => {
+  axios.get('/product.json').then(function (res) {
+    let myData = res.data.data;
+    myData.map((item, index) => {
+      if (item.id === id) {
+        state.productData = item.product;
+      }
+    })
+  })
+}
 

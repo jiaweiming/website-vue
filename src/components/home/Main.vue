@@ -10,7 +10,7 @@
     <div class="banner">
       <el-row :gutter="10" class="product-container">
         <el-col :span="12" v-for="(item,index) in products.lists" :key="index" class="product-single">
-          <router-link :to="'/products/'+item.id">
+          <router-link tag="div" :to="'/products/'+item.id">
             <div class="grid-content bg-purple">
               <img :src="item.image[0]" :alt="item.title">
               <h5 class="title">{{item.title}}</h5>

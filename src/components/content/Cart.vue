@@ -251,6 +251,7 @@
     text-align: right;
     margin-bottom:0;
     margin-right: 20px;
+    font-size: 15px;
   }
   .price-size-color{
     font-size: 14px;

@@ -10,7 +10,7 @@ const state = {
   totalCount: 0,
   currencyRate:1,
   currencyType : 'EUR',
-  data: '',
+  productData: '',
   show:false,
   isBuyNow:false,
   showPopup:false,

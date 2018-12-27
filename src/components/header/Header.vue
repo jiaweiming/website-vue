@@ -22,8 +22,8 @@
         </el-col>
         <el-col :span="8">
           <router-link to="/">
-            <div class="grid-content bg-purple-dark">
-              <img style="width: 99%;margin-top: -2px" src="/static/img/logo.jpg" alt="">
+            <div class="grid-content bg-purple-dark" style="display: flex;justify-content: center;align-items: center">
+              <img style="width: 90%;display: block" src="/static/img/newlogo.jpg" alt="">
             </div>
           </router-link>
         </el-col>
@@ -166,11 +166,9 @@
     height: 22px;
     border-radius: 50%;
     display: block;
-    position: absolute;
     background: #d73b3b;
     line-height: 22px;
     text-align: center;
-    padding: 2px;
     color: #fff;
   }
 
@@ -180,12 +178,12 @@
 
   .el-select .el-input__inner {
     width: 75%;
-    padding: 0;
     height: 30px;
     padding: 0 4px;
     background-color: #000;
     color: #fff;
     border-color: #999;
+    line-height: 36px;
   }
 
   .el-input__inner::placeholder {
