@@ -12,8 +12,8 @@
       <div class="pay-methods">
         <template>
           <el-radio-group v-model="radio" @change="getPay">
-            <el-radio :label="1"><div class="pay-png"><img src="/static/img/alipay.png" alt=""></div></el-radio>
-            <el-radio :label="2"><div class="pay-png"><img src="/static/img/wechat_payment.png" alt=""></div></el-radio>
+            <el-radio :label="1"><div class="pay-png"><img src="../../assets/img/alipay.png" alt=""></div></el-radio>
+            <el-radio :label="2"><div class="pay-png"><img src="../../assets/img/wechat_payment.png" alt=""></div></el-radio>
           </el-radio-group>
         </template>
       </div>
@@ -32,7 +32,7 @@
     </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters ,mapActions} from 'vuex'
   export default {
     data() {
       return {
@@ -49,11 +49,13 @@
       ])
     },
     methods:{
+      ...mapActions([
+        'clearCart'
+      ]),
       backToOrder(m){
         this.$router.go(m)
       },
       getPay(){
-        console.log(this.radio)
         let _this = this;
         document.getElementsByClassName('loading')[0].style.display = 'block';
         setTimeout(function () {
@@ -63,7 +65,7 @@
       },
       returnToHome(){
         this.dialogVisible = !this.dialogVisible;
-        this.$router.push({path:'/'})
+        this.$router.push({path:'/'});
       }
     }
   }

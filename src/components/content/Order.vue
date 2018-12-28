@@ -58,7 +58,7 @@
 </template>
 <script>
   import store from '../../vuex/stores'
-  import {mapGetters, mapMutations} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
   import formatMoney from '../module/formatMoney'
 
   export default {
@@ -84,7 +84,7 @@
           that.$router.push({path:'/payment'})
         },300)
       },
-      ...mapMutations([
+      ...mapActions([
         'getOderTotalPrice'
       ])
     },
@@ -96,7 +96,6 @@
       ]),
       productsTotalPrice: function () {
         let totalPrice = 0;
-        console.log(this.list)
         this.list.map((item) => {
           totalPrice += Number(item.count) * Number(item.price)
         });

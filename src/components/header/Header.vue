@@ -6,7 +6,7 @@
     <div class="header">
       <el-row>
         <el-col :span="3">
-          <div @click="showMenu()" class="grid-content bg-purple-dark"><img src="/static/img/menu.svg" alt=""></div>
+          <div @click="showMenu()" class="grid-content bg-purple-dark"><img src="../../assets/img/menu.svg" alt=""></div>
         </el-col>
         <el-col :span="5">
           <div class="grid-content bg-purple-dark">
@@ -23,7 +23,7 @@
         <el-col :span="8">
           <router-link to="/">
             <div class="grid-content bg-purple-dark" style="display: flex;justify-content: center;align-items: center">
-              <img style="width: 90%;display: block" src="/static/img/newlogo.jpg" alt="">
+              <img style="width: 90%;display: block" src="../../assets/img/newlogo.jpg" alt="">
             </div>
           </router-link>
         </el-col>
@@ -36,13 +36,13 @@
         </el-col>
         <el-col :span="2">
           <router-link to="/account">
-            <div class="grid-content bg-purple-dark"><img src="/static/img/user.svg" alt=""></div>
+            <div class="grid-content bg-purple-dark"><img src="../../assets/img/user.svg" alt=""></div>
           </router-link>
         </el-col>
         <el-col :span="3">
           <router-link to="/cart">
             <div class="grid-content bg-purple-dark cart-count-box">
-              <img src="/static/img/cart.svg" alt="">
+              <img src="../../assets/img/cart.svg" alt="">
               <span v-if="addedToCart.length" class="cart-count">{{getTotalNumber()}}</span>
             </div>
           </router-link>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import {mapMutations, mapGetters} from 'vuex'
+  import {mapActions, mapGetters} from 'vuex'
   import Menu from '../../components/header/Menu.vue'
   import store from '../../vuex/stores'
 
@@ -92,7 +92,7 @@
       ])
     },
     methods: {
-      ...mapMutations([
+      ...mapActions([
         'showMenu',
         'changeCurrency'
       ]),

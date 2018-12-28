@@ -19,15 +19,18 @@
           </el-row>
         </div>
       </div>
+      <Pagination></Pagination>
     </div>
 </template>
 <script>
   import formatMoney from '../module/formatMoney.js'
+  import Pagination from '../module/Pagination.vue'
   export default {
     data() {
       return {
         money:formatMoney,
         title:this.$route.params.query,
+        currentPage:1,
         lists: [
           {
             id: 123001, title: 'Elegant Panel Sleeveless Dress', price: 18000,handle:'elegant-panel-sleeveless-dress',
@@ -48,9 +51,14 @@
         ]
       }
     },
+    components:{
+      Pagination
+    },
     watch:{
       $route(to,from){
         this.title = to.params.query;
+        this.currentPage = to.query.page;
+        console.log(to.query.page)
       }
     },
   }

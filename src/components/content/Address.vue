@@ -53,7 +53,7 @@
     </div>
 </template>
 <script>
-  import {mapGetters, mapMutations} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
   import store from '../../vuex/stores'
   export default {
     data() {
@@ -73,7 +73,7 @@
       }
     },
     methods:{
-      ...mapMutations([
+      ...mapActions([
         'changeAddress',
         'addNewAddress'
       ]),

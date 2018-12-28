@@ -31,7 +31,7 @@
   </transition>
 </template>
 <script>
-  import {mapGetters,mapMutations} from 'vuex'
+  import {mapGetters,mapActions} from 'vuex'
   import store from '../../vuex/stores'
 
   export default {
@@ -60,7 +60,7 @@
       ])
     },
     methods:{
-      ...mapMutations([
+      ...mapActions([
         'showMenu'
       ]),
       getStatus(){

@@ -16,10 +16,10 @@
             <div class="product-single-cart">
               <div class="top-icons">
                 <el-checkbox :label="item" :key="index" :id="''+item.id" :value="item.id" v-model="checked"
-                             v-on:change="checked.includes(item) ? selectSingleInCart(item,index):selectSingleInCart(false)">
+                             v-on:change="checked.includes(item) ? selectSingleInCart({item:item,index:index}):selectSingleInCart(false)">
                 </el-checkbox>
-                <i class="el-icon-delete" @click="removeOne(item.id,index,item)"
-                   :disabled="!checked.includes(item)" v-on:click="removeSingleInList(item,index,item.id)"></i>
+                <i class="el-icon-delete" @click="removeOne(item.id)"
+                   :disabled="!checked.includes(item)" v-on:click="removeSingleInList(item)"></i>
               </div>
               <div class="product-single-desc">
                 <div class="left-img">
@@ -57,7 +57,7 @@
 
     </div>
     <div v-else>
-      <img style="width: 180px" src="/static/img/empty-cart.png" alt="">
+      <img style="width: 180px" src="../../assets/img/empty-cart.png" alt="">
       <p>
         <router-link to="/">逛一逛</router-link>
       </p>
@@ -67,7 +67,7 @@
 <script>
   import Vue from 'vue'
   import store from '../../vuex/stores'
-  import {mapGetters, mapMutations} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
   import formatMoney from '../module/formatMoney.js'
 
   export default {
@@ -85,7 +85,7 @@
       }
     },
     methods: {
-      ...mapMutations([
+      ...mapActions([
         'selectAllInCart',
         'selectSingleInCart',
         'removeSingleInList'
@@ -99,7 +99,7 @@
         this.checkAll = checkedCount === this.cartProducts.length;
         this.isIndeterminate = checkedCount > 0 && checkedCount < this.cartProducts.length;
       },
-      removeOne(id, index, val) {
+      removeOne(id) {
         this.checked.map((item, index) => {
           if (item.id === id) {
             this.checked.splice(index, 1)

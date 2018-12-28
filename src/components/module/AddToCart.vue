@@ -7,7 +7,7 @@
           <img :src="selectProduct.image" :alt="selectProduct.name">
         </div>
         <div class="title">
-          <h6>{{format.format(data.price / 100)}}</h6>
+          <h6>{{format(data.price)}}</h6>
           <p class="inventory">库存:{{data.inventory}}件</p>
           <p class="inventory">已选" {{selectProduct.color}} / {{selectProduct.size}} "</p>
         </div>
@@ -35,25 +35,21 @@
           </p>
         </div>
       </div>
-      <el-button class="sure-add" type="primary" @click="sendVariantToCart(selectProduct);turnToCart(ifBuyNow);open(ifBuyNow)">确定</el-button>
-
+      <el-button class="sure-add" type="primary"
+                 @click="sendVariantToCart(selectProduct);turnToCart(ifBuyNow);open(ifBuyNow)">确定
+      </el-button>
     </div>
   </div>
 </template>
 <script>
-  import {mapMutations, mapGetters} from 'vuex'
+  import { mapGetters, mapActions} from 'vuex'
   import store from '../../../src/vuex/stores'
   import axios from 'axios'
-
-  const formatter = new Intl.NumberFormat('cn-CN', {
-    style: 'currency',
-    currency: 'CNY',
-    minimumFractionDigits: 2
-  });
+  import formatMoney from '../module/formatMoney.js'
   export default {
     data() {
       return {
-        format: formatter,
+        format: formatMoney,
         selectProduct: {
           count: 1,
           color: '',
@@ -73,7 +69,7 @@
       ])
     },
     methods: {
-      ...mapMutations([
+      ...mapActions([
         'hideBox',
         'sendVariantToCart'
       ]),
@@ -96,10 +92,9 @@
             type: 'success'
           })
         }
-
       },
     },
-    mounted() { //在组件加载完时，初始化加购时的基础数据，从父组件props传过来
+    mounted() {
       let that = this;
       axios.get('/product.json').then(function (res) {
         let myData = res.data.data;

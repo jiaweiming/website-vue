@@ -1,7 +1,7 @@
 <template>
     <div id="not-found">
       <div>
-        <img src="/static/img/not-found.png" alt="">
+        <img src="../../assets/img/not-found.png" alt="">
         <p>抱歉，您查看的页面不存在...</p><span><router-link to="/">去首页</router-link></span>
       </div>
     </div>

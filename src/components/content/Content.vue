@@ -3,7 +3,7 @@
     <div class="loading">
       <i class="el-icon-loading"></i>
     </div>
-    <transition name="fade">
+    <transition name="">
       <router-view></router-view>
     </transition>
   </div>
