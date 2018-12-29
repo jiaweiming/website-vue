@@ -15,11 +15,13 @@
       <div class="colors">
         <p>颜色</p>
         <el-radio-group v-model="selectProduct.color" @change="switchChange" size="small">
-          <el-radio-button class="color-btn" v-for="(item,index) in data.colors" :label="item.color" :key="index"></el-radio-button>
+          <el-radio-button class="color-btn" v-for="(item,index) in data.colors" :label="item.color"
+                           :key="index"></el-radio-button>
         </el-radio-group>
         <p>尺码</p>
         <el-radio-group v-model="selectProduct.size" size="small">
-          <el-radio-button class="color-btn" v-for="(item,index) in data.sizes" :label="item" :key="index"></el-radio-button>
+          <el-radio-button class="color-btn" v-for="(item,index) in data.sizes" :label="item"
+                           :key="index"></el-radio-button>
         </el-radio-group>
         <div class="buy-count">
           <p>购买数量</p>
@@ -42,10 +44,9 @@
   </div>
 </template>
 <script>
-  import { mapGetters, mapActions} from 'vuex'
-  import store from '../../../src/vuex/stores'
-  import axios from 'axios'
+  import {mapGetters, mapActions} from 'vuex'
   import formatMoney from '../module/formatMoney.js'
+
   export default {
     data() {
       return {
@@ -55,13 +56,13 @@
           color: '',
           size: '',
           price: '',
-          id:'',
+          id: '',
           name: '',
-          image:'',
+          image: '',
         }
       }
     },
-    props: ['data', 'now','id'],
+    props: ['data', 'now', 'id'],
     computed: {
       ...mapGetters([
         'showPopupInProduct',
@@ -78,15 +79,15 @@
           this.$router.push({path: '/cart'})
         }
       },
-      switchChange(val){
-        this.data.colors.map((item,index)=>{
-          if(item.color === val){
+      switchChange(val) {
+        this.data.colors.map((item, index) => {
+          if (item.color === val) {
             this.selectProduct.image = this.data.colors[index].image;
           }
         })
       },
       open(m) {
-        if(!m){
+        if (!m) {
           this.$message({
             message: '成功加入购物车，快去结算吧!',
             type: 'success'
@@ -94,21 +95,15 @@
         }
       },
     },
-    mounted() {
-      let that = this;
-      axios.get('/product.json').then(function (res) {
-        let myData = res.data.data;
-        myData.map((item,index)=>{
-          if(item.id === that.id){
-            that.selectProduct.color = item.product.colors[0].color;
-            that.selectProduct.image = item.product.colors[0].image;
-            that.selectProduct.size = item.product.sizes[0];
-            that.selectProduct.id = item.product.id;
-            that.selectProduct.price = item.product.price;
-            that.selectProduct.name = item.product.title;
-          }
-        })
-      })
+    watch: {
+      data: function (newVal, oldVal) {  //获取从父组件传过来的商品data，赋值给初始值
+        this.selectProduct.color = newVal.colors[0].color;
+        this.selectProduct.image = newVal.colors[0].image;
+        this.selectProduct.size = newVal.sizes[0];
+        this.selectProduct.id = newVal.id;
+        this.selectProduct.price = newVal.price;
+        this.selectProduct.name = newVal.title;
+      }
     }
   }
 </script>

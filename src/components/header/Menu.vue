@@ -1,9 +1,8 @@
 <template>
-  <transition mode="out-in" name="fade">
-    <div id="menu" v-if="isShowMenu">
+  <div id="aside-menu">
+    <div id="menu" :class="isShowMenu? 'menu menu-hide': 'menu menu-active' ">
       <div class="list">
         <div class="left-menu">
-
           <el-row class="tac">
             <el-col :span="12">
               <el-menu
@@ -28,7 +27,7 @@
         </div>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 <script>
   import {mapGetters,mapActions} from 'vuex'
@@ -73,24 +72,24 @@
   .el-submenu .el-menu-item {
     min-width: 180px;
   }
-
-  #menu {
+  .menu{
     position: fixed;
     width: 100%;
-    left: 0;
     top: 36px;
     z-index: 20;
+    transition: all .3s linear;
   }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
+  .menu-hide{
+    left: -101%;
   }
-
-  .fade-enter, .fade-leave-active {
-    opacity: 0
+  .menu-active{
+    left: 0;
   }
-
   .el-submenu__title .el-icon-arrow-down::before {
     display: none;
+  }
+  .el-col-12{
+    overflow: scroll;
+    height: 100%;
   }
 </style>

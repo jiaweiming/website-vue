@@ -169,8 +169,8 @@ export const clearCartAfterPayed = (state) =>{ //购物车内清空已付款的�
 export const _getProductData = (state, id) => {
   axios.get('/product.json').then(function (res) {
     let myData = res.data.data;
-    myData.map((item, index) => {
-      if (item.id === id) {
+    myData.map((item) => {
+      if (Number(item.id) === id) {
         state.productData = item.product;
       }
     })

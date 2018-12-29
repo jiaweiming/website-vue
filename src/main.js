@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Vue from 'vue'
 import {Button,Select,Input,Menu,Rate,MenuItem,Alert,Dialog,Radio,RadioGroup,Checkbox,CheckboxGroup,Option,
   Breadcrumb,BreadcrumbItem,Carousel,CarouselItem,MenuItemGroup,Submenu,Form,FormItem,Header,Footer,Container,
-  Aside,Main,Row,Col,RadioButton,Message,Pagination} from 'element-ui'
+  Aside,Main,Row,Col,RadioButton,Message,Pagination,Autocomplete} from 'element-ui'
 import App from './App.vue'
 import router from './router'
 import store from './vuex/stores'
@@ -26,6 +26,7 @@ Vue.component(Button.name, Button);
 Vue.component(Select.name, Select);
 Vue.component(Option.name, Option);
 Vue.component(Radio.name, Radio);
+Vue.component(Autocomplete.name, Autocomplete);
 Vue.component(Pagination.name, Pagination);
 Vue.component(RadioButton.name, RadioButton);
 Vue.component(Rate.name, Rate);

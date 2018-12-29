@@ -4,7 +4,9 @@
       <i class="el-icon-loading"></i>
     </div>
     <transition name="">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </transition>
   </div>
 </template>
