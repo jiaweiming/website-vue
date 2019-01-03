@@ -3,10 +3,8 @@
     <div class="loading">
       <i class="el-icon-loading"></i>
     </div>
-    <transition name="">
-      <keep-alive>
+    <transition name="out-in">
         <router-view></router-view>
-      </keep-alive>
     </transition>
   </div>
 </template>

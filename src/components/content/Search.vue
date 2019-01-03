@@ -24,7 +24,7 @@
         <h6>历史搜索:</h6>
         <ul>
           <li v-for="(item,index) in  history" :key="index">
-            <span @click="clickRecommendkWords(item)">{{item}}</span>
+            <span @click="clickRecommendWords(item)">{{item}}</span>
           </li>
         </ul>
       </div>
@@ -32,7 +32,7 @@
         <h6>搜索发现:</h6>
         <ul>
           <li v-for="(item,index) in find" :key="index">
-            <span @click="clickRecommendkWords(item)">{{item}}</span>
+            <span @click="clickRecommendWords(item)">{{item}}</span>
           </li>
         </ul>
       </div>
@@ -105,7 +105,7 @@
         ]
       },
       handleSelect(item) {
-        this.$router.push({path: '/search?q=' + this.productData.title.replace(/\s+/g, '-').toLowerCase()});
+        this.$router.push({path: '/search?q=' + item.value.replace(/\s+/g, '-').toLowerCase()});
         this.showList = false;
         let _this = this;
         axios.get('/product.json').then(function (res) {
@@ -117,10 +117,11 @@
           })
         })
       },
-      clickRecommendkWords(val){
+      clickRecommendWords(val){
         this.recommendWords = val;
       },
       getInput() {
+        this.$router.push({path: '/search?q=' + this.recommendWords.replace(/\s+/g, '-').toLowerCase()});
         this.$message({
           message: '暂不支持自定义搜索功能，请使用推荐搜索!',
           type: 'warning'

@@ -38,7 +38,7 @@
         </div>
       </div>
       <el-button class="sure-add" type="primary"
-                 @click="sendVariantToCart(selectProduct);turnToCart(ifBuyNow);open(ifBuyNow)">确定
+                 @click="turnToCart(ifBuyNow)">确定
       </el-button>
     </div>
   </div>
@@ -74,9 +74,23 @@
         'hideBox',
         'sendVariantToCart'
       ]),
-      turnToCart(m) {
+      turnToCart(m) {  //点击加入购物车，将信息存入state
+        document.getElementsByClassName('loading')[0].style.display = 'block';
+        let that = this;
+        that.$store.dispatch('sendVariantToCart',that.selectProduct);
         if (m) {
-          this.$router.push({path: '/cart'})
+          setTimeout(function () {
+            that.$router.push({path:'/cart'});
+            document.getElementsByClassName('loading')[0].style.display = 'none';
+          },300)
+        }else{
+          setTimeout(function () {
+            that.$message({
+              message: '成功加入购物车，快去结算吧!',
+              type: 'success'
+            });
+            document.getElementsByClassName('loading')[0].style.display = 'none';
+          },300);
         }
       },
       switchChange(val) {
@@ -85,15 +99,7 @@
             this.selectProduct.image = this.data.colors[index].image;
           }
         })
-      },
-      open(m) {
-        if (!m) {
-          this.$message({
-            message: '成功加入购物车，快去结算吧!',
-            type: 'success'
-          })
-        }
-      },
+      }
     },
     watch: {
       data: function (newVal, oldVal) {  //获取从父组件传过来的商品data，赋值给初始值

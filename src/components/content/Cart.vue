@@ -29,10 +29,10 @@
                 </div>
                 <div class="right-title">
                   <h6>{{item.name}}</h6>
-                  <h6 class="price-size-color">{{format((item.price))}}</h6>
-                  <h6 class="price-size-color">{{item.size}}/{{item.color}}</h6>
+                  <h6 class="price-size-color" style="color: rgb(215, 59, 59)">{{format((item.price))}}</h6>
+                  <h6 class="price-size-color" style="color: rgb(215, 59, 59)">{{item.size}}/{{item.color}}</h6>
                   <div class="bottom-nav">
-                    <p class="single-total-price">{{format((item.price) * item.count)}}</p>
+                    <p class="single-total-price" style="color: rgb(215, 59, 59)">{{format((item.price) * item.count)}}</p>
                     <p class="count-number">
                       <span class="num-count" @click="item.count > 1 ? item.count-- : 1"><i
                         class="el-icon-minus"></i></span>

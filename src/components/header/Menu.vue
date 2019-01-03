@@ -1,6 +1,6 @@
 <template>
   <div id="aside-menu">
-    <div id="menu" :class="isShowMenu? 'menu menu-hide': 'menu menu-active' ">
+    <div id="menu" :class="isShowMenu? 'menu menu-active': 'menu menu-hide' ">
       <div class="list">
         <div class="left-menu">
           <el-row class="tac">
