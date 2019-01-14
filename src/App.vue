@@ -41,10 +41,12 @@ export default {
   margin: 0 auto;
 }
   .header{
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
   }
   .footer{
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
   }
