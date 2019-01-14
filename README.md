@@ -7,7 +7,7 @@ use VUE 2.0 to establish a website
 
 ## Build Setup
 
-#git checkout dev 切换到dev分支，代码都在dev分支上
+cd website-vue ; git checkout dev 首先进入文件夹，然后切换到dev分支，代码都在dev分支上
 ``` bash
 # install dependencies
 npm install
