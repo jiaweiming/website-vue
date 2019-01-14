@@ -1,6 +1,7 @@
 <template>
   <div id="aside-menu">
-    <div id="menu" :class="isShowMenu? 'menu menu-active': 'menu menu-hide' ">
+    <div id="menu" :class="isShowMenu? 'menu menu-active': 'menu menu-hide' " >
+      <div class="close-left-menu" @click="showMenu"><i class="el-icon-circle-close-outline"></i></div>
       <div class="list">
         <div class="left-menu">
           <el-row class="tac">
@@ -75,9 +76,11 @@
   .menu{
     position: fixed;
     width: 100%;
-    top: 36px;
+    top: 0;
     z-index: 20;
     transition: all .3s linear;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
   }
   .menu-hide{
     left: -101%;
@@ -85,11 +88,27 @@
   .menu-active{
     left: 0;
   }
+
+  @media screen and (min-width: 500px){
+    .menu-hide{
+      display: none;
+    }
+  }
   .el-submenu__title .el-icon-arrow-down::before {
     display: none;
   }
   .el-col-12{
     overflow: scroll;
     height: 100%;
+  }
+  .close-left-menu{
+    position: absolute;
+    right:10px;
+    top:10px;
+    z-index: 24;
+  }
+  .close-left-menu i {
+    font-size: 32px;
+    color: #fff;
   }
 </style>

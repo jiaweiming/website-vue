@@ -81,7 +81,7 @@
         checked: store.state.selectedInCart,
         checkAll: false,
         cartProducts: store.state.addedToCart,
-        isIndeterminate: true
+        isIndeterminate: true,
       }
     },
     methods: {

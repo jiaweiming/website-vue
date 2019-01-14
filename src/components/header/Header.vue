@@ -120,6 +120,14 @@
     top: 0;
     width: 100%;
   }
+  @media screen and (min-width: 500px){
+    .header {
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      width: 100%;
+    }
+  }
 
   .el-row:last-child {
     margin-bottom: 0;

@@ -37,5 +37,15 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
+  .header{
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .footer{
+    max-width: 500px;
+    margin: 0 auto;
+  }
 </style>

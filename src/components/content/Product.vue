@@ -165,6 +165,14 @@
     border-top: 1px solid #eee
   }
 
+  @media screen and (min-width: 500px){
+    .add-to-cart{
+      max-width: 500px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
   .btn-buy {
     width: 49%;
   }

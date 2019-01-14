@@ -18,13 +18,19 @@
     data() {
       return {}
     },
-    mounted() {
-      let swiper = new Swiper(this.$refs.swipers, {
-        autoplay: false,
-        loop: true,
-        observer:true,
-        observeParents:true
-      });
+    methods:{
+      swiperInit() {
+        let mySwiper = new Swiper('.swiper-container', {
+          loop:true,
+          autoplay:false,
+          observer:true,
+          observeParents:true,
+          observeSlideChildren:true,
+        })
+      }
+    },
+    updated(){
+      this.swiperInit()
     },
     props: ['lists']
   }

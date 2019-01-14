@@ -4,7 +4,7 @@
       <i class="el-icon-loading"></i>
     </div>
     <transition name="out-in">
-        <router-view></router-view>
+      <router-view></router-view>
     </transition>
   </div>
 </template>
@@ -20,7 +20,7 @@
 </script>
 <style>
   .content{
-    flex: 1 0 auto
+    flex: 1 0 auto;
   }
   .loading{
     position: fixed;

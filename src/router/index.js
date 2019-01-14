@@ -22,6 +22,7 @@ export default new Router({
     {
       path: '/',
       component: Main,
+      name: 'home',
       children: [
         {
           path: 'header',
@@ -31,50 +32,62 @@ export default new Router({
     },
     {
       path: '',
+      name: 'home',
       component: Home
     },
     {
       path: '/products/:id',
+      name: 'products',
       component: Product
     },
     {
       path: '/collections/:query',
+      name: 'collections',
       component: Collection
     },
     {
       path: '/collections/:query/products/:id',
+      name: 'products',
       component: Product,
     },
     {
       path: '/account',
+      name: 'account',
       component: User,
     },
     {
       path: '/cart',
+      name: 'cart',
       component: Cart
     },
     {
       path: '/order',
+      name: 'order',
       component: Payment
     },
     {
       path: '/address',
+      name: 'address',
       component: Address,
     },
     {
       path: '/payment',
+      name: 'payment',
       component: PayMethods
     },
     {
       path: '/search',
+      name: 'search',
       component: Search
     },
     {
       path: '/rate-:id',
+      name: 'rate',
       component: Rate
     },
     {
       path: '*',
+      name: '404',
       component: NotFound
     }
   ],
